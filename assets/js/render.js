@@ -685,7 +685,11 @@
     }
     function importSharedSchedule() {}
 
-    function renderEvents() {}
+    function renderEvents() {
+        if (typeof WCC.renderEvents === 'function' && WCC.renderEvents !== renderEvents) {
+            return WCC.renderEvents.apply(WCC, arguments);
+        }
+    }
 
     function activateEventCard() {}
 
