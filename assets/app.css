@@ -2066,13 +2066,6 @@ body.has-wcc-modal {
     gap: 8px;
 }
 
-.wcc-build {
-    margin-top: 18px;
-    color: var(--wcc-muted);
-    font-size: 0.78rem;
-    text-align: center;
-}
-
 @media (prefers-color-scheme: dark) {
     :root {
         --wcc-border: #3f4a57;

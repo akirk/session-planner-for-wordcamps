@@ -129,11 +129,6 @@
         nodes.status = document.getElementById('wcc-status');
         nodes.schedule = document.getElementById('wcc-schedule');
         nodes.tabs = Array.from(document.querySelectorAll('.wcc-tab'));
-        nodes.jsBuild = document.getElementById('wcc-js-build');
-
-        if (nodes.jsBuild) {
-            nodes.jsBuild.textContent = 'JS ' + (config.assetVersion || SCRIPT_BUILD);
-        }
 
         bindEvents();
         startClock();

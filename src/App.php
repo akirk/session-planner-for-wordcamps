@@ -130,8 +130,7 @@ class App extends BaseApp {
 
         $plugin_file = dirname( __DIR__ ) . '/wordcamp-companion.php';
         $css_path = dirname( __DIR__ ) . '/assets/app.css';
-        $version = defined( 'WORDCAMP_COMPANION_VERSION' ) ? WORDCAMP_COMPANION_VERSION : '1.0.0';
-        $asset_version = defined( 'WORDCAMP_COMPANION_ASSET_VERSION' ) ? WORDCAMP_COMPANION_ASSET_VERSION : $version;
+        $asset_version = defined( 'WORDCAMP_COMPANION_VERSION' ) ? WORDCAMP_COMPANION_VERSION : '1.0.0';
 
         wp_app_enqueue_style(
             'dashicons',

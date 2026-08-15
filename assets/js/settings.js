@@ -11,11 +11,6 @@
         const checkbox = document.getElementById('wcc-setting-debug-clock');
         const saveButton = document.getElementById('wcc-settings-save');
         const status = document.getElementById('wcc-settings-status');
-        const build = document.getElementById('wcc-js-build');
-
-        if (build) {
-            build.textContent = 'JS ' + (config.assetVersion || 'settings');
-        }
 
         if (!checkbox || !saveButton) {
             return;
