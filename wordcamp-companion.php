@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WordCamp Companion
  * Description: Plan your WordCamp attendance and save sessions from event schedules.
- * Version: 1.0.0
+ * Version: 1.0.0+39c4a05df300
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Author: Alex Kirk
