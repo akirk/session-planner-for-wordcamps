@@ -26,6 +26,7 @@ class App extends BaseApp {
                 'require_login' => true,
                 'app_name'      => 'WordCamp Companion',
                 'my_apps'       => true,
+		'my_apps_icon'  => 'dashicons-schedule',
             ]
         );
 
