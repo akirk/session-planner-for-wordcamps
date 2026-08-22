@@ -4,6 +4,7 @@
  * Description: Plan your WordCamp attendance and save sessions from event schedules.
  * Version: 1.0.0
  * Requires at least: 5.0
+ * Tested up to: 7.1
  * Requires PHP: 7.4
  * Author: Alex Kirk
  * Author URI: https://alex.kirk.at/
