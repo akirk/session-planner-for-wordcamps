@@ -263,8 +263,8 @@ class App extends BaseApp {
             'uses24HourTime'           => ! preg_match( '/[ga]/i', (string) get_option( 'time_format' ) ),
             'settings'                 => UserSettings::get_settings( get_current_user_id() ),
             'initialPlan'              => $this->repository->get_plan( get_current_user_id() ),
-            'savedSessionRestBase'     => PlannerRepository::POST_REST_BASE,
-            'wordcampTaxonomyRestBase' => PlannerRepository::TAXONOMY_REST_BASE,
+            'savedSessionRestBase'     => PlannerRepository::POST_TYPE,
+            'wordcampTaxonomyRestBase' => PlannerRepository::TAXONOMY,
             'lazyAssets'               => [
                 'qr' => $this->get_lazy_asset_url( 'assets/js/qr.js', $asset_version ),
             ],
