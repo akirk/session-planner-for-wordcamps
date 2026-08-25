@@ -17,6 +17,9 @@
     function setEventCompanionVisibility() {
         return WCC.setEventCompanionVisibility.apply(WCC, arguments);
     }
+    function addEventToTravelApp() {
+        return WCC.addEventToTravelApp.apply(WCC, arguments);
+    }
     function savedSessionPostToSession() {
         return WCC.savedSessionPostToSession.apply(WCC, arguments);
     }
@@ -498,6 +501,7 @@
                 nodes.openEvent.hidden = true;
             }
             setHidden(nodes.companionVisibility, true);
+            setHidden(nodes.travelApp, true);
             return;
         }
 
@@ -519,6 +523,33 @@
         }
 
         renderCompanionVisibilityButton(nodes.companionVisibility, event);
+        renderTravelAppButton(nodes.travelApp, event);
+    }
+
+    function getTravelAppButtonLabel(event) {
+        if (state.addingTravelAppEventUrl === event.event_url) {
+            return 'Adding...';
+        }
+
+        return state.travelAppTripUrls[event.event_url] ? 'Open in Travel App' : 'Add to Travel App';
+    }
+
+    function renderTravelAppButton(button, event) {
+        if (!button) {
+            return;
+        }
+
+        // The button only appears when the Travel App abilities are available
+        // to this user and the WordCamp is on their attending list.
+        if (!config.travelApp || !event || !event.event_url || !isEventShownInCompanion(event)) {
+            setHidden(button, true);
+            return;
+        }
+
+        setHidden(button, false);
+        button.textContent = getTravelAppButtonLabel(event);
+        button.disabled = Boolean(state.addingTravelAppEventUrl);
+        button.setAttribute('aria-label', getTravelAppButtonLabel(event) + ': ' + getEventTitle(event));
     }
 
     function renderControls() {
@@ -1456,6 +1487,24 @@
         switcher.append(select);
         switcherRow.append(switcher, shareButton);
         links.append(planButton, notesButton);
+        if (config.travelApp && selectedEvent && selectedEvent.event_url) {
+            const travelButton = element('button', {
+                className: 'wcc-plan-link wcc-companion-link-travel',
+                type: 'button',
+                text: getTravelAppButtonLabel(selectedEvent),
+            });
+            travelButton.disabled = Boolean(state.addingTravelAppEventUrl);
+            travelButton.addEventListener('click', function () {
+                const tripUrl = state.travelAppTripUrls[selectedEvent.event_url];
+                if (tripUrl) {
+                    window.location.href = tripUrl;
+                    return;
+                }
+
+                addEventToTravelApp(selectedEvent);
+            });
+            links.append(travelButton);
+        }
         wrapper.append(switcherRow);
         wrapper.append(links);
 

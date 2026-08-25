@@ -26,6 +26,8 @@
         savingSessionId: null,
         pendingDeletedSessionUndo: null,
         savingCompanionEventUrl: '',
+        addingTravelAppEventUrl: '',
+        travelAppTripUrls: {},
         savingNotePostId: null,
         noteAutosaveTimers: {},
         noteAutosaveStatus: {},

@@ -109,6 +109,18 @@ class RestController {
 
         register_rest_route(
             self::NAMESPACE,
+            '/travel-app',
+            [
+                [
+                    'methods'             => 'POST',
+                    'callback'            => [ $this, 'add_event_to_travel_app' ],
+                    'permission_callback' => [ $this, 'can_read' ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            self::NAMESPACE,
             '/plan',
             [
                 [
@@ -1030,6 +1042,34 @@ class RestController {
 
     public function get_plan(): \WP_REST_Response {
         return rest_ensure_response( $this->repository->get_plan( get_current_user_id() ) );
+    }
+
+    /**
+     * Adds the given WordCamp to the Travel App via its abilities.
+     */
+    public function add_event_to_travel_app( WP_REST_Request $request ) {
+        $params = $this->get_request_params( $request );
+        $event = isset( $params['event'] ) && is_array( $params['event'] ) ? $params['event'] : [];
+        $event_url = isset( $event['event_url'] ) && is_string( $event['event_url'] )
+            ? $this->api->normalize_event_site_url( $event['event_url'] )
+            : '';
+
+        if ( '' === $event_url ) {
+            return new \WP_Error( 'wordcamp_companion_invalid_event', __( 'Choose a WordCamp first.', 'wordcamp-companion' ), [ 'status' => 400 ] );
+        }
+
+        // Trust the central listing over whatever the client sent.
+        $central_event = $this->api->get_wordcamp_by_event_url( $event_url );
+        if ( is_array( $central_event ) && $central_event ) {
+            $event = array_replace_recursive( $event, $central_event );
+        }
+
+        $result = ( new TravelAppIntegration() )->add_event( $event );
+        if ( is_wp_error( $result ) ) {
+            return $result;
+        }
+
+        return rest_ensure_response( $result );
     }
 
     public function save_event( WP_REST_Request $request ) {
