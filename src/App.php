@@ -268,6 +268,7 @@ class App extends BaseApp {
             'lazyAssets'               => [
                 'qr' => $this->get_lazy_asset_url( 'assets/js/qr.js', $asset_version ),
             ],
+            'travelApp'                => ( new TravelAppIntegration() )->get_client_config(),
         ];
     }
 

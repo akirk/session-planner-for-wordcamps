@@ -485,6 +485,51 @@
         }
     }
 
+    /**
+     * Adds the WordCamp to the Travel App. The server runs the travel-app
+     * abilities: it reuses a travel plan with the same title or creates one.
+     */
+    async function addEventToTravelApp(event) {
+        if (!config.travelApp || !event || !event.event_url || state.addingTravelAppEventUrl) {
+            return;
+        }
+
+        state.addingTravelAppEventUrl = event.event_url;
+        state.alert = null;
+        render();
+
+        try {
+            const result = await api('travel-app', {
+                method: 'POST',
+                body: { event: event },
+            });
+            const tripUrl = result && result.trip && result.trip.url ? result.trip.url : '';
+            if (!tripUrl) {
+                throw new Error('The Travel App did not return a travel plan.');
+            }
+
+            const title = event.title || event.location || event.event_url;
+            state.travelAppTripUrls[event.event_url] = tripUrl;
+            state.alert = {
+                type: 'success',
+                message: result.created
+                    ? 'Added ' + title + ' to the Travel App.'
+                    : title + ' is already in the Travel App.',
+                actions: [
+                    {
+                        label: 'Open in Travel App',
+                        href: tripUrl,
+                    },
+                ],
+            };
+        } catch (error) {
+            state.alert = getErrorAlert(error);
+        } finally {
+            state.addingTravelAppEventUrl = '';
+            render();
+        }
+    }
+
     async function loadSchedule(refresh, mode) {
         if (!state.selectedEventUrl) {
             state.schedule = null;
@@ -842,6 +887,7 @@
         selectEventForMobileCompanion: selectEventForMobileCompanion,
         selectNotesEvent: selectNotesEvent,
         setEventCompanionVisibility: setEventCompanionVisibility,
+        addEventToTravelApp: addEventToTravelApp,
         loadSchedule: loadSchedule,
         loadGapCandidates: loadGapCandidates,
         shouldLoadInitialCompanionGaps: shouldLoadInitialCompanionGaps,
