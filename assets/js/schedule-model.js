@@ -237,7 +237,7 @@
             status: 'publish',
             meta: buildSavedSessionMeta(session, termId),
         };
-        const taxonomyRestBase = config.wordcampTaxonomyRestBase || 'wordcamp-companion-wordcamps';
+        const taxonomyRestBase = config.wordcampTaxonomyRestBase || 'wcc_wordcamp';
 
         if (termId) {
             body[taxonomyRestBase] = [termId];
@@ -250,13 +250,13 @@
     }
 
     async function deleteSavedSessionPost(postId) {
-        return wpApi((config.savedSessionRestBase || 'wordcamp-companion-sessions') + '/' + Number(postId), {
+        return wpApi((config.savedSessionRestBase || 'wcc_session') + '/' + Number(postId), {
             method: 'DELETE',
         });
     }
 
     async function restoreSavedSessionPost(postId) {
-        return wpApi((config.savedSessionRestBase || 'wordcamp-companion-sessions') + '/' + Number(postId), {
+        return wpApi((config.savedSessionRestBase || 'wcc_session') + '/' + Number(postId), {
             method: 'POST',
             body: { status: 'publish' },
         });

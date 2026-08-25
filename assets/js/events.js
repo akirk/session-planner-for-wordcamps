@@ -766,7 +766,7 @@
         }
 
         try {
-            const updatedPost = await wpApi((config.savedSessionRestBase || 'wordcamp-companion-sessions') + '/' + postId, {
+            const updatedPost = await wpApi((config.savedSessionRestBase || 'wcc_session') + '/' + postId, {
                 method: 'POST',
                 body: {
                     meta: {
