@@ -140,7 +140,7 @@ class TravelAppIntegration {
             return new WP_Error( 'wordcamp_companion_travel_app_unavailable', __( 'The Travel App is not available.', 'wordcamp-companion' ), [ 'status' => 404 ] );
         }
 
-        $result = $ability->execute( (object) $input );
+        $result = $ability->execute( $input );
         if ( is_wp_error( $result ) ) {
             if ( ! isset( $result->get_error_data()['status'] ) ) {
                 $result->add_data( [ 'status' => 400 ] );
