@@ -11,6 +11,10 @@
 
 Plan the WordCamp you are attending, save sessions, follow a minimal live companion timeline, and export your session notes. You can try it out and use it in [my.wordpress.net](https://my.wordpress.net/?myapps-i=wordcamp-companion) at [https://my.wordpress.net/?myapps-i=wordcamp-companion](https://my.wordpress.net/?myapps-i=wordcamp-companion).
 
+[Try it in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/akirk/wordcamp-companion/main/blueprint.json)
+
+[Try it in OpenStation](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/akirk/wordcamp-companion/main/blueprint-openstation.json) — the same app opened in desktop mode with the [OpenStation](https://github.com/WordPress/openstation) plugin.
+
 See [my blog post](https://alex.kirk.at/2026/06/03/wordcamp-companion/) for details and screenshots!
 
 ## Description
