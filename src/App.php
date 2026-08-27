@@ -25,8 +25,12 @@ class App extends BaseApp {
             [
                 'require_login' => true,
                 'app_name'      => 'WordCamp Companion',
-                'my_apps'       => true,
-		'my_apps_icon'  => 'dashicons-schedule',
+                'launcher'      => true,
+                'app_icon'      => 'dashicons-schedule',
+                // Owned content: REST reads are gated with the app's capability and
+                // OpenStation keeps these menus out of its dock.
+                'post_types'    => [ PlannerRepository::POST_TYPE ],
+                'taxonomies'    => [ PlannerRepository::TAXONOMY ],
             ]
         );
 
