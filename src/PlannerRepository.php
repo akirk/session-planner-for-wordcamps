@@ -46,12 +46,10 @@ class PlannerRepository {
     }
 
     public static function register_content_types(): void {
-        // REST reads must be gated: front-end require_login does not cover the
-        // REST API, and core keys anonymous read access off show_in_rest alone
-        // (not 'public'). Use wp-app's Access gate; if an older wp-app without it
-        // is the loaded copy, fall back to a request filter.
-        $rest_gate = class_exists( '\\WpApp\\Rest\\Access' );
-        if ( ! $rest_gate ) {
+        // REST reads are gated by wp-app via the 'post_types' and 'taxonomies'
+        // app options. If an older wp-app without that gate is the loaded copy,
+        // fall back to a request filter.
+        if ( ! class_exists( '\\WpApp\\Rest\\Access' ) ) {
             add_filter( 'rest_pre_dispatch', [ __CLASS__, 'require_login_for_rest' ], 10, 3 );
         }
 
@@ -67,7 +65,6 @@ class PlannerRepository {
                 'show_ui'           => true,
                 'show_admin_column' => true,
                 'show_in_rest'      => true,
-                'rest_controller_class' => $rest_gate ? \WpApp\Rest\Access::protect_taxonomy( self::TAXONOMY, 'read' ) : null,
                 'hierarchical'      => false,
                 'capabilities'      => [
                     'manage_terms' => 'read',
@@ -89,7 +86,6 @@ class PlannerRepository {
                 'show_ui'         => true,
                 'show_in_menu'    => true,
                 'show_in_rest'    => true,
-                'rest_controller_class' => $rest_gate ? \WpApp\Rest\Access::protect_post_type( self::POST_TYPE, 'read' ) : null,
                 'supports'        => [ 'title', 'author', 'custom-fields' ],
                 'taxonomies'      => [ self::TAXONOMY ],
                 'capability_type' => [ 'wcc_session', 'wcc_sessions' ],
