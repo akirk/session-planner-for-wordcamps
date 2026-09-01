@@ -144,7 +144,8 @@ class App extends BaseApp {
             'dashicons',
             includes_url( 'css/dashicons.min.css' ),
             [],
-            get_bloginfo( 'version' )
+            get_bloginfo( 'version' ),
+            $this->get_url_path()
         );
 
         if ( file_exists( $css_path ) ) {
@@ -152,12 +153,13 @@ class App extends BaseApp {
                 'wordcamp-companion',
                 plugins_url( 'assets/app.css', $plugin_file ),
                 [],
-                $asset_version . '-' . filemtime( $css_path )
+                $asset_version . '-' . filemtime( $css_path ),
+                $this->get_url_path()
             );
         }
 
         add_action(
-            'wp_app_head_scripts',
+            wp_app_get_scoped_hook_name( 'wp_app_head_scripts', $this->get_url_path() ),
             function () use ( $asset_version ): void {
                 echo '<script id="wordcamp-companion-config-inline-js">' . "\n";
                 echo 'window.WordCampCompanionConfig = ' . wp_json_encode( $this->get_client_config( $asset_version ) ) . ';' . "\n";
@@ -240,7 +242,9 @@ class App extends BaseApp {
             $handle,
             plugins_url( $relative_path, $plugin_file ),
             $dependencies,
-            $asset_version . '-' . filemtime( $script_path )
+            $asset_version . '-' . filemtime( $script_path ),
+            true,
+            $this->get_url_path()
         );
 
         return true;
