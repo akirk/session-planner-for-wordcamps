@@ -3,7 +3,7 @@
  * Plugin Name: Session Planner for WordCamps
  * Plugin URI: https://github.com/akirk/session-planner-for-wordcamps
  * Description: Plan the WordCamp you are attending: save sessions from the schedule, follow a live timeline through your day, and export your notes.
- * Version: 1.0.0
+ * Version: 1.0.0+0f1191cf025c
  * Requires at least: 6.0
  * Tested up to: 7.1
  * Requires PHP: 7.4
