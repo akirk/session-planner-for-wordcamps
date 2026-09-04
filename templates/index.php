@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo esc_html( wp_app_title( 'Session Planner for WordCamps' ) ); ?></title>
+    <title><?php wp_app_the_title( 'Session Planner for WordCamps' ); ?></title>
     <?php wp_app_head(); ?>
 </head>
 <body>
