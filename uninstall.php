@@ -1,20 +1,20 @@
 <?php
 /**
- * Clean up WordCamp Companion data on uninstall.
+ * Clean up Session Planner for WordCamps data on uninstall.
  *
- * @package WordCampCompanion
+ * @package SessionPlannerForWordCamps
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-const WORDCAMP_COMPANION_UNINSTALL_POST_TYPE = 'wcc_session';
-const WORDCAMP_COMPANION_UNINSTALL_TAXONOMY = 'wcc_wordcamp';
+const SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_POST_TYPE = 'wcc_session';
+const SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_TAXONOMY = 'wcc_wordcamp';
 
-function wordcamp_companion_uninstall_register_content_types(): void {
-	if ( ! taxonomy_exists( WORDCAMP_COMPANION_UNINSTALL_TAXONOMY ) ) {
+function session_planner_for_wordcamps_uninstall_register_content_types(): void {
+	if ( ! taxonomy_exists( SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_TAXONOMY ) ) {
 		register_taxonomy(
-			WORDCAMP_COMPANION_UNINSTALL_TAXONOMY,
-			[ WORDCAMP_COMPANION_UNINSTALL_POST_TYPE ],
+			SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_TAXONOMY,
+			[ SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_POST_TYPE ],
 			[
 				'public'       => false,
 				'hierarchical' => false,
@@ -22,22 +22,22 @@ function wordcamp_companion_uninstall_register_content_types(): void {
 		);
 	}
 
-	if ( ! post_type_exists( WORDCAMP_COMPANION_UNINSTALL_POST_TYPE ) ) {
+	if ( ! post_type_exists( SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_POST_TYPE ) ) {
 		register_post_type(
-			WORDCAMP_COMPANION_UNINSTALL_POST_TYPE,
+			SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_POST_TYPE,
 			[
 				'public'     => false,
-				'taxonomies' => [ WORDCAMP_COMPANION_UNINSTALL_TAXONOMY ],
+				'taxonomies' => [ SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_TAXONOMY ],
 			]
 		);
 	}
 }
 
-function wordcamp_companion_uninstall_delete_saved_sessions(): void {
+function session_planner_for_wordcamps_uninstall_delete_saved_sessions(): void {
 	do {
 		$post_ids = get_posts(
 			[
-				'post_type'              => WORDCAMP_COMPANION_UNINSTALL_POST_TYPE,
+				'post_type'              => SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_POST_TYPE,
 				'post_status'            => get_post_stati( [], 'names' ),
 				'posts_per_page'         => 100,
 				'fields'                 => 'ids',
@@ -53,10 +53,10 @@ function wordcamp_companion_uninstall_delete_saved_sessions(): void {
 	} while ( ! empty( $post_ids ) );
 }
 
-function wordcamp_companion_uninstall_delete_wordcamp_terms(): void {
+function session_planner_for_wordcamps_uninstall_delete_wordcamp_terms(): void {
 	$term_ids = get_terms(
 		[
-			'taxonomy'   => WORDCAMP_COMPANION_UNINSTALL_TAXONOMY,
+			'taxonomy'   => SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_TAXONOMY,
 			'hide_empty' => false,
 			'fields'     => 'ids',
 		]
@@ -67,11 +67,13 @@ function wordcamp_companion_uninstall_delete_wordcamp_terms(): void {
 	}
 
 	foreach ( array_map( 'absint', $term_ids ) as $term_id ) {
-		wp_delete_term( $term_id, WORDCAMP_COMPANION_UNINSTALL_TAXONOMY );
+		wp_delete_term( $term_id, SESSION_PLANNER_FOR_WORDCAMPS_UNINSTALL_TAXONOMY );
 	}
 }
 
-function wordcamp_companion_uninstall_delete_transients(): void {
+function session_planner_for_wordcamps_uninstall_delete_transients(): void {
+	// The cache keys below keep the spelling the plugin used before it was
+	// renamed, because that is what existing installs have in the options table.
 	delete_transient( 'wordcamp_companion_wordcamps_v4' );
 
 	global $wpdb;
@@ -97,14 +99,14 @@ function wordcamp_companion_uninstall_delete_transients(): void {
 	}
 }
 
-function wordcamp_companion_uninstall_delete_site_data(): void {
-	wordcamp_companion_uninstall_register_content_types();
-	wordcamp_companion_uninstall_delete_saved_sessions();
-	wordcamp_companion_uninstall_delete_wordcamp_terms();
-	wordcamp_companion_uninstall_delete_transients();
+function session_planner_for_wordcamps_uninstall_delete_site_data(): void {
+	session_planner_for_wordcamps_uninstall_register_content_types();
+	session_planner_for_wordcamps_uninstall_delete_saved_sessions();
+	session_planner_for_wordcamps_uninstall_delete_wordcamp_terms();
+	session_planner_for_wordcamps_uninstall_delete_transients();
 }
 
-function wordcamp_companion_uninstall_delete_user_meta(): void {
+function session_planner_for_wordcamps_uninstall_delete_user_meta(): void {
 	foreach ( [
 		'wordcamp_companion_selected_wordcamp',
 		'wordcamp_companion_wordcamp_visibility',
@@ -115,20 +117,20 @@ function wordcamp_companion_uninstall_delete_user_meta(): void {
 }
 
 if ( is_multisite() ) {
-	$wordcamp_companion_site_ids = get_sites(
+	$session_planner_for_wordcamps_site_ids = get_sites(
 		[
 			'fields' => 'ids',
 			'number' => 0,
 		]
 	);
 
-	foreach ( array_map( 'absint', $wordcamp_companion_site_ids ) as $wordcamp_companion_site_id ) {
-		switch_to_blog( $wordcamp_companion_site_id );
-		wordcamp_companion_uninstall_delete_site_data();
+	foreach ( array_map( 'absint', $session_planner_for_wordcamps_site_ids ) as $session_planner_for_wordcamps_site_id ) {
+		switch_to_blog( $session_planner_for_wordcamps_site_id );
+		session_planner_for_wordcamps_uninstall_delete_site_data();
 		restore_current_blog();
 	}
 } else {
-	wordcamp_companion_uninstall_delete_site_data();
+	session_planner_for_wordcamps_uninstall_delete_site_data();
 }
 
-wordcamp_companion_uninstall_delete_user_meta();
+session_planner_for_wordcamps_uninstall_delete_user_meta();

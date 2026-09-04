@@ -36,4 +36,4 @@
     Object.assign(WCC, {
         loadLazyAsset: loadLazyAsset
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

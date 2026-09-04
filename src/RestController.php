@@ -1,6 +1,6 @@
 <?php
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 use WP_Error;
 use WP_Query;
@@ -9,7 +9,7 @@ use WP_REST_Request;
 defined( 'ABSPATH' ) || exit;
 
 class RestController {
-    private const NAMESPACE = 'wordcamp-companion/v1';
+    private const NAMESPACE = 'session-planner-for-wordcamps/v1';
     private const SUBSTANTIAL_OVERLAP_SECONDS = 20 * MINUTE_IN_SECONDS;
 
     private WordCampApi $api;
@@ -205,8 +205,8 @@ class RestController {
 
         if ( '' === $event_url ) {
             return new WP_Error(
-                'wordcamp_companion_missing_event_url',
-                __( 'Select a WordCamp before loading its schedule.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_event_url',
+                __( 'Select a WordCamp before loading its schedule.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -229,8 +229,8 @@ class RestController {
 
         if ( '' === $event_url ) {
             return new WP_Error(
-                'wordcamp_companion_missing_event_url',
-                __( 'Select a WordCamp before loading your companion view.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_event_url',
+                __( 'Select a WordCamp before loading your companion view.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -243,8 +243,8 @@ class RestController {
 
         if ( '' === $event_url ) {
             return new WP_Error(
-                'wordcamp_companion_missing_event_url',
-                __( 'Select a WordCamp before loading session choices.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_event_url',
+                __( 'Select a WordCamp before loading session choices.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -289,16 +289,16 @@ class RestController {
         $event_url = esc_url_raw( (string) ( $meta['wcc_event_url'] ?? '' ) );
         if ( ! $session_id || ! $term_id || '' === $event_url ) {
             return new WP_Error(
-                'wordcamp_companion_missing_saved_session_meta',
-                __( 'Saved session metadata is incomplete.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_saved_session_meta',
+                __( 'Saved session metadata is incomplete.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
 
         if ( ! term_exists( $term_id, PlannerRepository::TAXONOMY ) ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_wordcamp_term',
-                __( 'The selected WordCamp was not found.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_wordcamp_term',
+                __( 'The selected WordCamp was not found.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -310,8 +310,8 @@ class RestController {
             $restored_post_id = wp_untrash_post( $post_id );
             if ( ! $restored_post_id ) {
                 return new WP_Error(
-                    'wordcamp_companion_restore_saved_session_failed',
-                    __( 'Saved session could not be restored from trash.', 'wordcamp-companion' ),
+                    'session_planner_for_wordcamps_restore_saved_session_failed',
+                    __( 'Saved session could not be restored from trash.', 'session-planner-for-wordcamps' ),
                     [ 'status' => 500 ]
                 );
             }
@@ -368,14 +368,14 @@ class RestController {
     }
 
     private function get_saved_session_title( array $body ): string {
-        $title = $body['title'] ?? __( 'Untitled session', 'wordcamp-companion' );
+        $title = $body['title'] ?? __( 'Untitled session', 'session-planner-for-wordcamps' );
         if ( is_array( $title ) ) {
-            $title = $title['raw'] ?? $title['rendered'] ?? __( 'Untitled session', 'wordcamp-companion' );
+            $title = $title['raw'] ?? $title['rendered'] ?? __( 'Untitled session', 'session-planner-for-wordcamps' );
         }
 
         $title = sanitize_text_field( (string) $title );
 
-        return '' !== $title ? $title : __( 'Untitled session', 'wordcamp-companion' );
+        return '' !== $title ? $title : __( 'Untitled session', 'session-planner-for-wordcamps' );
     }
 
     private function find_trashed_saved_session_post_id( int $user_id, int $term_id, int $session_id, string $event_url ): int {
@@ -1055,7 +1055,7 @@ class RestController {
             : '';
 
         if ( '' === $event_url ) {
-            return new \WP_Error( 'wordcamp_companion_invalid_event', __( 'Choose a WordCamp first.', 'wordcamp-companion' ), [ 'status' => 400 ] );
+            return new \WP_Error( 'session_planner_for_wordcamps_invalid_event', __( 'Choose a WordCamp first.', 'session-planner-for-wordcamps' ), [ 'status' => 400 ] );
         }
 
         // Trust the central listing over whatever the client sent.

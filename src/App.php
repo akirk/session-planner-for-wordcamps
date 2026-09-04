@@ -1,6 +1,6 @@
 <?php
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 use WpApp\BaseApp;
 use WpApp\WpApp;
@@ -24,7 +24,7 @@ class App extends BaseApp {
             $this->get_url_path(),
             [
                 'require_login' => true,
-                'app_name'      => 'WordCamp Companion',
+                'app_name'      => 'Session Planner for WordCamps',
                 'launcher'      => true,
                 'app_icon'            => 'dashicons-schedule',
                 'app_icon_background' => 'linear-gradient(135deg, #0073aa, #00a0d2)',
@@ -44,7 +44,7 @@ class App extends BaseApp {
     }
 
     protected function get_url_path(): string {
-        return 'wordcamp-companion';
+        return 'session-planner-for-wordcamps';
     }
 
     protected function get_template_dir(): string {
@@ -65,22 +65,22 @@ class App extends BaseApp {
 
     protected function setup_menu(): void {
         $this->app->add_menu_item(
-            'wordcamp-companion-home',
+            'session-planner-for-wordcamps-home',
             'Companion',
             home_url( '/' . $this->get_url_path() . '/' )
         );
         $this->app->add_menu_item(
-            'wordcamp-companion-wordcamps',
+            'session-planner-for-wordcamps-wordcamps',
             'Upcoming WordCamps',
             home_url( '/' . $this->get_url_path() . '/plan-your/' )
         );
         $this->app->add_menu_item(
-            'wordcamp-companion-notes',
+            'session-planner-for-wordcamps-notes',
             'Notes',
             home_url( '/' . $this->get_url_path() . '/notes/' )
         );
         $this->app->add_menu_item(
-            'wordcamp-companion-settings',
+            'session-planner-for-wordcamps-settings',
             'Settings',
             home_url( '/' . $this->get_url_path() . '/settings/' )
         );
@@ -143,9 +143,9 @@ class App extends BaseApp {
             return;
         }
 
-        $plugin_file = dirname( __DIR__ ) . '/wordcamp-companion.php';
+        $plugin_file = dirname( __DIR__ ) . '/session-planner-for-wordcamps.php';
         $css_path = dirname( __DIR__ ) . '/assets/app.css';
-        $asset_version = defined( 'WORDCAMP_COMPANION_VERSION' ) ? WORDCAMP_COMPANION_VERSION : '1.0.0';
+        $asset_version = defined( 'SESSION_PLANNER_FOR_WORDCAMPS_VERSION' ) ? SESSION_PLANNER_FOR_WORDCAMPS_VERSION : '1.0.0';
 
         wp_app_enqueue_style(
             'dashicons',
@@ -157,7 +157,7 @@ class App extends BaseApp {
 
         if ( file_exists( $css_path ) ) {
             wp_app_enqueue_style(
-                'wordcamp-companion',
+                'session-planner-for-wordcamps',
                 plugins_url( 'assets/app.css', $plugin_file ),
                 [],
                 $asset_version . '-' . filemtime( $css_path ),
@@ -168,8 +168,8 @@ class App extends BaseApp {
         add_action(
             wp_app_get_scoped_hook_name( 'wp_app_head_scripts', $this->get_url_path() ),
             function () use ( $asset_version ): void {
-                echo '<script id="wordcamp-companion-config-inline-js">' . "\n";
-                echo 'window.WordCampCompanionConfig = ' . wp_json_encode( $this->get_client_config( $asset_version ) ) . ';' . "\n";
+                echo '<script id="session-planner-for-wordcamps-config-inline-js">' . "\n";
+                echo 'window.SessionPlannerForWordCampsConfig = ' . wp_json_encode( $this->get_client_config( $asset_version ) ) . ';' . "\n";
                 echo '</script>' . "\n";
             },
             0
@@ -178,7 +178,7 @@ class App extends BaseApp {
         if ( 'settings.php' === basename( $template_path ) ) {
             $settings_script_path = dirname( __DIR__ ) . '/assets/js/settings.js';
             if ( file_exists( $settings_script_path ) ) {
-                $this->enqueue_script_asset( 'wordcamp-companion-settings', 'assets/js/settings.js', [], $asset_version );
+                $this->enqueue_script_asset( 'session-planner-for-wordcamps-settings', 'assets/js/settings.js', [], $asset_version );
             }
 
             return;
@@ -197,49 +197,49 @@ class App extends BaseApp {
     private function get_script_assets_for_template( string $template_path ): array {
         $page = basename( $template_path );
         $assets = [
-            'wordcamp-companion-state'          => 'assets/js/state.js',
-            'wordcamp-companion-i18n'           => 'assets/js/i18n.js',
-            'wordcamp-companion-dom'            => 'assets/js/dom.js',
-            'wordcamp-companion-api'            => 'assets/js/api.js',
-            'wordcamp-companion-asset-loader'   => 'assets/js/asset-loader.js',
-            'wordcamp-companion-clock'          => 'assets/js/clock.js',
-            'wordcamp-companion-events'         => 'assets/js/events.js',
-            'wordcamp-companion-schedule-model' => 'assets/js/schedule-model.js',
+            'session-planner-for-wordcamps-state'          => 'assets/js/state.js',
+            'session-planner-for-wordcamps-i18n'           => 'assets/js/i18n.js',
+            'session-planner-for-wordcamps-dom'            => 'assets/js/dom.js',
+            'session-planner-for-wordcamps-api'            => 'assets/js/api.js',
+            'session-planner-for-wordcamps-asset-loader'   => 'assets/js/asset-loader.js',
+            'session-planner-for-wordcamps-clock'          => 'assets/js/clock.js',
+            'session-planner-for-wordcamps-events'         => 'assets/js/events.js',
+            'session-planner-for-wordcamps-schedule-model' => 'assets/js/schedule-model.js',
         ];
 
         if ( 'index.php' === $page ) {
-            $assets['wordcamp-companion-companion-model'] = 'assets/js/companion-model.js';
+            $assets['session-planner-for-wordcamps-companion-model'] = 'assets/js/companion-model.js';
         }
 
-        $assets['wordcamp-companion-render'] = 'assets/js/render.js';
+        $assets['session-planner-for-wordcamps-render'] = 'assets/js/render.js';
 
         if ( 'plan-your.php' === $page ) {
-            $assets['wordcamp-companion-render-events'] = 'assets/js/render-events.js';
+            $assets['session-planner-for-wordcamps-render-events'] = 'assets/js/render-events.js';
         }
 
         if ( in_array( $page, [ 'index.php', 'plan.php' ], true ) ) {
-            $assets['wordcamp-companion-render-share'] = 'assets/js/render-share.js';
+            $assets['session-planner-for-wordcamps-render-share'] = 'assets/js/render-share.js';
         }
 
         if ( 'plan.php' === $page ) {
-            $assets['wordcamp-companion-render-plan'] = 'assets/js/render-plan.js';
+            $assets['session-planner-for-wordcamps-render-plan'] = 'assets/js/render-plan.js';
         }
 
         if ( 'notes.php' === $page ) {
-            $assets['wordcamp-companion-render-notes'] = 'assets/js/render-notes.js';
+            $assets['session-planner-for-wordcamps-render-notes'] = 'assets/js/render-notes.js';
         }
 
         if ( 'index.php' === $page && UserSettings::is_debug_clock_enabled( get_current_user_id() ) ) {
-            $assets['wordcamp-companion-debug-clock'] = 'assets/js/debug-clock.js';
+            $assets['session-planner-for-wordcamps-debug-clock'] = 'assets/js/debug-clock.js';
         }
 
-        $assets['wordcamp-companion'] = 'assets/js/bootstrap.js';
+        $assets['session-planner-for-wordcamps'] = 'assets/js/bootstrap.js';
 
         return $assets;
     }
 
     private function enqueue_script_asset( string $handle, string $relative_path, array $dependencies, string $asset_version ): bool {
-        $plugin_file = dirname( __DIR__ ) . '/wordcamp-companion.php';
+        $plugin_file = dirname( __DIR__ ) . '/session-planner-for-wordcamps.php';
         $script_path = dirname( __DIR__ ) . '/' . $relative_path;
         if ( ! file_exists( $script_path ) ) {
             return false;
@@ -266,7 +266,7 @@ class App extends BaseApp {
 
     private function get_client_config( string $asset_version ): array {
         return [
-            'restUrl'                  => rest_url( 'wordcamp-companion/v1/' ),
+            'restUrl'                  => rest_url( 'session-planner-for-wordcamps/v1/' ),
             'wpRestUrl'                => rest_url( 'wp/v2/' ),
             'nonce'                    => wp_create_nonce( 'wp_rest' ),
             'loginUrl'                 => wp_login_url( home_url( '/' . $this->get_url_path() . '/' ) ),
@@ -274,7 +274,7 @@ class App extends BaseApp {
             'notesUrl'                 => home_url( '/' . $this->get_url_path() . '/notes/' ),
             'planBaseUrl'              => home_url( '/' . $this->get_url_path() . '/plan-your/' ),
             'planUrl'                  => home_url( '/' . $this->get_url_path() . '/plan-your/' ),
-            'shareUrl'                 => 'https://my.wordpress.net/?myapps-i=wordcamp-companion',
+            'shareUrl'                 => 'https://my.wordpress.net/?myapps-i=session-planner-for-wordcamps',
             'routeWordcampSlug'        => sanitize_title( (string) get_query_var( 'wordcamp' ) ),
             'assetVersion'             => $asset_version,
             'timeFormat'               => get_option( 'time_format' ),
@@ -291,7 +291,7 @@ class App extends BaseApp {
     }
 
     private function get_lazy_asset_url( string $relative_path, string $asset_version ): string {
-        $plugin_file = dirname( __DIR__ ) . '/wordcamp-companion.php';
+        $plugin_file = dirname( __DIR__ ) . '/session-planner-for-wordcamps.php';
         $path = dirname( __DIR__ ) . '/' . $relative_path;
         if ( ! file_exists( $path ) ) {
             return '';

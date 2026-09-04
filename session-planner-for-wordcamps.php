@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WordCamp Companion
- * Plugin URI: https://github.com/akirk/wordcamp-companion
+ * Plugin Name: Session Planner for WordCamps
+ * Plugin URI: https://github.com/akirk/session-planner-for-wordcamps
  * Description: Plan the WordCamp you are attending: save sessions from the schedule, follow a live timeline through your day, and export your notes.
  * Version: 1.0.0
  * Requires at least: 6.0
@@ -11,22 +11,22 @@
  * Author URI: https://alex.kirk.at/
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: wordcamp-companion
+ * Text Domain: session-planner-for-wordcamps
  */
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'WORDCAMP_COMPANION_VERSION', '1.0.0' );
+define( 'SESSION_PLANNER_FOR_WORDCAMPS_VERSION', '1.0.0' );
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Autoloader for plugin classes.
 spl_autoload_register( function( $class ) {
-    $prefix = 'WordCampCompanion\\';
+    $prefix = 'SessionPlannerForWordCamps\\';
     $len = strlen( $prefix );
     if ( strncmp( $prefix, $class, $len ) !== 0 ) {
         return;

@@ -85,7 +85,7 @@
     }
 
     function init() {
-        nodes.app = document.getElementById('wordcamp-companion-app');
+        nodes.app = document.getElementById('session-planner-for-wordcamps-app');
         if (!nodes.app) {
             return;
         }
@@ -431,4 +431,4 @@
         getSharedScheduleWccValueFromUrl: getSharedScheduleWccValueFromUrl,
         isAllowedSharedScheduleUrl: isAllowedSharedScheduleUrl
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

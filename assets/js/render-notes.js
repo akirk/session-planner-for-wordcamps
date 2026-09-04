@@ -812,4 +812,4 @@
         buildNotesMarkdown: buildNotesMarkdown,
         refreshNotesExportPreview: refreshNotesExportPreview
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

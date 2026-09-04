@@ -296,4 +296,4 @@
         renderTrackSession: renderTrackSession,
         renderSession: renderSession
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

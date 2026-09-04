@@ -1,4 +1,4 @@
-# WordCamp Companion
+# Session Planner for WordCamps
 
 - Contributors: akirk
 - Tags: events, schedule, conference, planner, notes
@@ -13,7 +13,7 @@ Plan the WordCamp you are attending: save sessions from the schedule, follow a l
 
 ## Description
 
-WordCamp Companion is a logged-in WordPress app for planning the community events you attend.
+Session Planner for WordCamps is a logged-in WordPress app for planning the community events you attend.
 
 It can list upcoming events from the public WordCamp Central API, open the schedule for a selected event, and save the sessions you want to attend. The companion view focuses on the next practical step: arriving at the venue, walking to the right track, following saved sessions, and seeing day boundaries for multi-day events.
 
@@ -31,11 +31,11 @@ Features include:
 - Rendered Markdown export preview with copy and download actions.
 - Optional debug time controls for testing the live companion view.
 
-You can try it out and use it in [my.wordpress.net](https://my.wordpress.net/?myapps-i=wordcamp-companion) at [https://my.wordpress.net/?myapps-i=wordcamp-companion](https://my.wordpress.net/?myapps-i=wordcamp-companion).
+You can try it out and use it in [my.wordpress.net](https://my.wordpress.net/?myapps-i=session-planner-for-wordcamps) at [https://my.wordpress.net/?myapps-i=session-planner-for-wordcamps](https://my.wordpress.net/?myapps-i=session-planner-for-wordcamps).
 
-[Try it in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/akirk/wordcamp-companion/main/blueprint.json)
+[Try it in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/akirk/session-planner-for-wordcamps/main/blueprint.json)
 
-[Try it in OpenStation](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/akirk/wordcamp-companion/main/blueprint-openstation.json) — the same app opened in desktop mode with the [OpenStation](https://github.com/WordPress/openstation) plugin.
+[Try it in OpenStation](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/akirk/session-planner-for-wordcamps/main/blueprint-openstation.json) — the same app opened in desktop mode with the [OpenStation](https://github.com/WordPress/openstation) plugin.
 
 See [my blog post](https://alex.kirk.at/2026/06/03/wordcamp-companion/) for details and screenshots!
 
@@ -43,9 +43,9 @@ This plugin is an independent project. It is not affiliated with, endorsed by, o
 
 ## Installation
 
-1. Upload the plugin files to `/wp-content/plugins/wordcamp-companion/`.
+1. Upload the plugin files to `/wp-content/plugins/session-planner-for-wordcamps/`.
 2. Activate the plugin in WordPress.
-3. Open the app from the app menu or visit `/wordcamp-companion/`.
+3. Open the app from the app menu or visit `/session-planner-for-wordcamps/`.
 4. Choose an upcoming event, mark it as attending, and start saving sessions.
 
 ## Frequently Asked Questions

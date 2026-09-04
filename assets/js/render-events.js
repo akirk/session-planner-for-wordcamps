@@ -148,4 +148,4 @@
         activatePlanSelectorEvent: activatePlanSelectorEvent,
         createEventCompanionToggle: createEventCompanionToggle
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

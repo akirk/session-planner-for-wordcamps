@@ -1,6 +1,6 @@
 <?php
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 use WP_Error;
 
@@ -64,10 +64,10 @@ class Abilities {
         }
 
         wp_register_ability_category(
-            'wordcamp-companion',
+            'session-planner-for-wordcamps',
             [
-                'label'       => __( 'WordCamp Companion', 'wordcamp-companion' ),
-                'description' => __( 'Plan WordCamp attendance, inspect schedules, and analyze saved sessions.', 'wordcamp-companion' ),
+                'label'       => __( 'Session Planner for WordCamps', 'session-planner-for-wordcamps' ),
+                'description' => __( 'Plan WordCamp attendance, inspect schedules, and analyze saved sessions.', 'session-planner-for-wordcamps' ),
             ]
         );
 
@@ -92,11 +92,11 @@ class Abilities {
         }
 
         wp_register_ability(
-            'wordcamp-companion/list-wordcamps',
+            'session-planner-for-wordcamps/list-wordcamps',
             [
-                'label'               => __( 'List WordCamps', 'wordcamp-companion' ),
-                'description'         => __( 'Lists upcoming WordCamps from WordCamp Central with titles, dates, locations, and event URLs.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'List WordCamps', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Lists upcoming WordCamps from WordCamp Central with titles, dates, locations, and event URLs.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_list_wordcamps_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'list_wordcamps' ],
@@ -112,11 +112,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/get-plan',
+            'session-planner-for-wordcamps/get-plan',
             [
-                'label'               => __( 'Get WordCamp Plan', 'wordcamp-companion' ),
-                'description'         => __( 'Returns the current user\'s selected WordCamp, planned WordCamps, saved sessions, and companion visibility state.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Get WordCamp Plan', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Returns the current user\'s selected WordCamp, planned WordCamps, saved sessions, and companion visibility state.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_empty_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'get_plan' ],
@@ -132,11 +132,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/get-schedule',
+            'session-planner-for-wordcamps/get-schedule',
             [
-                'label'               => __( 'Get WordCamp Schedule', 'wordcamp-companion' ),
-                'description'         => __( 'Loads the full public schedule for a WordCamp, with optional session search by title, description, speaker, track, or category.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Get WordCamp Schedule', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Loads the full public schedule for a WordCamp, with optional session search by title, description, speaker, track, or category.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_event_url_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'get_schedule' ],
@@ -152,11 +152,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/analyze-plan',
+            'session-planner-for-wordcamps/analyze-plan',
             [
-                'label'               => __( 'Analyze WordCamp Plan', 'wordcamp-companion' ),
-                'description'         => __( 'Analyzes saved sessions for conflicts, gaps, day coverage, and selected WordCamp context.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Analyze WordCamp Plan', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Analyzes saved sessions for conflicts, gaps, day coverage, and selected WordCamp context.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_analyze_plan_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'analyze_plan' ],
@@ -172,11 +172,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/get-recommendation-candidates',
+            'session-planner-for-wordcamps/get-recommendation-candidates',
             [
-                'label'               => __( 'Get Session Recommendation Candidates', 'wordcamp-companion' ),
-                'description'         => __( 'Returns schedule sessions that match topics, day, track, category, and current plan constraints so an assistant can recommend an itinerary.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Get Session Recommendation Candidates', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Returns schedule sessions that match topics, day, track, category, and current plan constraints so an assistant can recommend an itinerary.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_recommendation_candidates_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'get_recommendation_candidates' ],
@@ -192,11 +192,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/select-wordcamp',
+            'session-planner-for-wordcamps/select-wordcamp',
             [
-                'label'               => __( 'Select WordCamp', 'wordcamp-companion' ),
-                'description'         => __( 'Sets the current user\'s selected WordCamp using an event snapshot from list-wordcamps.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Select WordCamp', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Sets the current user\'s selected WordCamp using an event snapshot from list-wordcamps.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_select_wordcamp_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'select_wordcamp' ],
@@ -212,11 +212,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/save-sessions',
+            'session-planner-for-wordcamps/save-sessions',
             [
-                'label'               => __( 'Save Sessions To Plan', 'wordcamp-companion' ),
-                'description'         => __( 'Adds confirmed WordCamp sessions to the current user\'s saved schedule by session IDs from the WordCamp schedule.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Save Sessions To Plan', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Adds confirmed WordCamp sessions to the current user\'s saved schedule by session IDs from the WordCamp schedule.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_save_sessions_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'save_sessions' ],
@@ -232,11 +232,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/remove-sessions',
+            'session-planner-for-wordcamps/remove-sessions',
             [
-                'label'               => __( 'Remove Sessions From Plan', 'wordcamp-companion' ),
-                'description'         => __( 'Removes confirmed WordCamp sessions from the current user\'s saved schedule by session IDs.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Remove Sessions From Plan', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Removes confirmed WordCamp sessions from the current user\'s saved schedule by session IDs.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_remove_sessions_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'remove_sessions' ],
@@ -252,11 +252,11 @@ class Abilities {
         );
 
         wp_register_ability(
-            'wordcamp-companion/save-session-note',
+            'session-planner-for-wordcamps/save-session-note',
             [
-                'label'               => __( 'Save Session Note', 'wordcamp-companion' ),
-                'description'         => __( 'Appends or replaces notes for one saved WordCamp session. If no session is specified, targets the currently running saved session when exactly one is active.', 'wordcamp-companion' ),
-                'category'            => 'wordcamp-companion',
+                'label'               => __( 'Save Session Note', 'session-planner-for-wordcamps' ),
+                'description'         => __( 'Appends or replaces notes for one saved WordCamp session. If no session is specified, targets the currently running saved session when exactly one is active.', 'session-planner-for-wordcamps' ),
+                'category'            => 'session-planner-for-wordcamps',
                 'input_schema'        => $this->schema_save_session_note_input(),
                 'output_schema'       => $this->schema_open_object(),
                 'execute_callback'    => [ $this, 'save_session_note' ],
@@ -275,14 +275,14 @@ class Abilities {
     }
 
     public function register_ability_domain( array $domains ): array {
-        $domains['wordcamp-companion'] = 'wordcamp, wordcamp companion, conference schedule, sessions, talks, tracks, speakers, notes, companion timeline, plan my day, event itinerary, add sessions, save sessions, remove sessions';
+        $domains['session-planner-for-wordcamps'] = 'wordcamp, wordcamp companion, conference schedule, sessions, talks, tracks, speakers, notes, companion timeline, plan my day, event itinerary, add sessions, save sessions, remove sessions';
         return $domains;
     }
 
     public function register_welcome_tips( array $tips, array $context ): array {
-        $tips['wordcamp-companion'] = [
-            __( 'Ask me to recommend sessions or check your saved plan for conflicts.', 'wordcamp-companion' ),
-            __( 'While a saved session is in progress, write notes here and I can add them to that session.', 'wordcamp-companion' ),
+        $tips['session-planner-for-wordcamps'] = [
+            __( 'Ask me to recommend sessions or check your saved plan for conflicts.', 'session-planner-for-wordcamps' ),
+            __( 'While a saved session is in progress, write notes here and I can add them to that session.', 'session-planner-for-wordcamps' ),
         ];
 
         return $tips;
@@ -596,8 +596,8 @@ class Abilities {
         $requested_session_ids = $this->normalize_session_ids( $input['session_ids'] ?? [] );
         if ( empty( $requested_session_ids ) ) {
             return new WP_Error(
-                'wordcamp_companion_missing_session_ids',
-                __( 'Provide one or more session_ids from the WordCamp schedule.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_session_ids',
+                __( 'Provide one or more session_ids from the WordCamp schedule.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -624,8 +624,8 @@ class Abilities {
         $term_id = absint( $event_plan['wordcamp_term_id'] ?? $plan['selected_wordcamp_term_id'] ?? 0 );
         if ( ! $term_id ) {
             return new WP_Error(
-                'wordcamp_companion_missing_wordcamp_term',
-                __( 'The selected WordCamp could not be prepared for saving sessions.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_wordcamp_term',
+                __( 'The selected WordCamp could not be prepared for saving sessions.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 500 ]
             );
         }
@@ -655,7 +655,7 @@ class Abilities {
                     'post_type'   => PlannerRepository::POST_TYPE,
                     'post_status' => 'publish',
                     'post_author' => $user_id,
-                    'post_title'  => sanitize_text_field( (string) ( $session['title'] ?? __( 'Untitled session', 'wordcamp-companion' ) ) ),
+                    'post_title'  => sanitize_text_field( (string) ( $session['title'] ?? __( 'Untitled session', 'session-planner-for-wordcamps' ) ) ),
                     'meta_input'  => $this->build_saved_session_meta( $event_url, $term_id, $session ),
                 ],
                 true
@@ -715,8 +715,8 @@ class Abilities {
         $requested_session_ids = $this->normalize_session_ids( $input['session_ids'] ?? [] );
         if ( empty( $requested_session_ids ) ) {
             return new WP_Error(
-                'wordcamp_companion_missing_session_ids',
-                __( 'Provide one or more saved session_ids to remove.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_session_ids',
+                __( 'Provide one or more saved session_ids to remove.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -752,7 +752,7 @@ class Abilities {
             if ( ! $post_id ) {
                 $failed[] = [
                     'session_id' => $session_id,
-                    'error'      => __( 'Saved session post ID was not found.', 'wordcamp-companion' ),
+                    'error'      => __( 'Saved session post ID was not found.', 'session-planner-for-wordcamps' ),
                 ];
                 continue;
             }
@@ -762,7 +762,7 @@ class Abilities {
                 $failed[] = [
                     'session_id' => $session_id,
                     'post_id'    => $post_id,
-                    'error'      => __( 'Saved session could not be deleted.', 'wordcamp-companion' ),
+                    'error'      => __( 'Saved session could not be deleted.', 'session-planner-for-wordcamps' ),
                 ];
                 continue;
             }
@@ -808,8 +808,8 @@ class Abilities {
         $note = isset( $input['note'] ) ? sanitize_textarea_field( (string) $input['note'] ) : '';
         if ( '' === trim( $note ) ) {
             return new WP_Error(
-                'wordcamp_companion_missing_note',
-                __( 'Provide note text to save.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_missing_note',
+                __( 'Provide note text to save.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -830,8 +830,8 @@ class Abilities {
         $post_id = absint( $target['post_id'] ?? 0 );
         if ( ! $post_id || get_current_user_id() !== absint( get_post_field( 'post_author', $post_id ) ) ) {
             return new WP_Error(
-                'wordcamp_companion_note_session_not_found',
-                __( 'Saved session was not found for the current user.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_note_session_not_found',
+                __( 'Saved session was not found for the current user.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 404 ]
             );
         }
@@ -866,8 +866,8 @@ class Abilities {
             }
 
             return new WP_Error(
-                'wordcamp_companion_note_post_not_saved',
-                __( 'The post_id is not a saved session in this WordCamp plan.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_note_post_not_saved',
+                __( 'The post_id is not a saved session in this WordCamp plan.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 404 ]
             );
         }
@@ -880,8 +880,8 @@ class Abilities {
             }
 
             return new WP_Error(
-                'wordcamp_companion_note_session_not_saved',
-                __( 'The session_id is not saved in this WordCamp plan.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_note_session_not_saved',
+                __( 'The session_id is not saved in this WordCamp plan.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 404 ]
             );
         }
@@ -909,15 +909,15 @@ class Abilities {
 
         if ( empty( $active_sessions ) ) {
             return new WP_Error(
-                'wordcamp_companion_no_current_session',
-                __( 'No saved session is currently in progress. Provide a session_id or post_id.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_no_current_session',
+                __( 'No saved session is currently in progress. Provide a session_id or post_id.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
 
         return new WP_Error(
-            'wordcamp_companion_multiple_current_sessions',
-            __( 'Multiple saved sessions are currently in progress. Provide a session_id or post_id.', 'wordcamp-companion' ),
+            'session_planner_for_wordcamps_multiple_current_sessions',
+            __( 'Multiple saved sessions are currently in progress. Provide a session_id or post_id.', 'session-planner-for-wordcamps' ),
             [ 'status' => 400 ]
         );
     }
@@ -937,8 +937,8 @@ class Abilities {
             }
 
             return new WP_Error(
-                'wordcamp_companion_wordcamp_term_not_found',
-                __( 'WordCamp wordcamp_term_id was not found in the current user\'s plans.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_wordcamp_term_not_found',
+                __( 'WordCamp wordcamp_term_id was not found in the current user\'s plans.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 404 ]
             );
         }
@@ -955,8 +955,8 @@ class Abilities {
             }
 
             return new WP_Error(
-                'wordcamp_companion_event_id_not_found',
-                __( 'WordCamp event_id was not found in the upcoming WordCamps list.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_event_id_not_found',
+                __( 'WordCamp event_id was not found in the upcoming WordCamps list.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 404 ]
             );
         }
@@ -967,8 +967,8 @@ class Abilities {
         }
 
         return new WP_Error(
-            'wordcamp_companion_missing_event_url',
-            __( 'Select a WordCamp or provide event_url.', 'wordcamp-companion' ),
+            'session_planner_for_wordcamps_missing_event_url',
+            __( 'Select a WordCamp or provide event_url.', 'session-planner-for-wordcamps' ),
             [ 'status' => 400 ]
         );
     }
@@ -1630,7 +1630,7 @@ class Abilities {
                 ],
                 'event_id' => [
                     'type'        => 'integer',
-                    'description' => 'WordCamp Central event ID from wordcamp-companion/list-wordcamps. Use event_url when available.',
+                    'description' => 'WordCamp Central event ID from session-planner-for-wordcamps/list-wordcamps. Use event_url when available.',
                 ],
                 'day' => [
                     'type'        => 'string',
@@ -1693,7 +1693,7 @@ class Abilities {
                 ],
                 'event_id' => [
                     'type'        => 'integer',
-                    'description' => 'WordCamp Central event ID from wordcamp-companion/list-wordcamps. Use event_url when available.',
+                    'description' => 'WordCamp Central event ID from session-planner-for-wordcamps/list-wordcamps. Use event_url when available.',
                 ],
                 'include_schedule_bounds' => [
                     'type'        => 'boolean',
@@ -1724,7 +1724,7 @@ class Abilities {
                 ],
                 'event_id' => [
                     'type'        => 'integer',
-                    'description' => 'WordCamp Central event ID from wordcamp-companion/list-wordcamps. Use event_url when available.',
+                    'description' => 'WordCamp Central event ID from session-planner-for-wordcamps/list-wordcamps. Use event_url when available.',
                 ],
                 'topics' => [
                     'type'        => 'array',
@@ -1780,7 +1780,7 @@ class Abilities {
             'properties'           => [
                 'event' => [
                     'type'        => 'object',
-                    'description' => 'Complete WordCamp event object from wordcamp-companion/list-wordcamps.',
+                    'description' => 'Complete WordCamp event object from session-planner-for-wordcamps/list-wordcamps.',
                 ],
                 'event_url' => [
                     'type'        => 'string',
@@ -1809,7 +1809,7 @@ class Abilities {
                 ],
                 'event_id' => [
                     'type'        => 'integer',
-                    'description' => 'WordCamp Central event ID from wordcamp-companion/list-wordcamps. Use event_url when available.',
+                    'description' => 'WordCamp Central event ID from session-planner-for-wordcamps/list-wordcamps. Use event_url when available.',
                 ],
                 'session_ids' => [
                     'type'        => 'array',
@@ -1842,7 +1842,7 @@ class Abilities {
                 ],
                 'event_id' => [
                     'type'        => 'integer',
-                    'description' => 'WordCamp Central event ID from wordcamp-companion/list-wordcamps. Use event_url when available.',
+                    'description' => 'WordCamp Central event ID from session-planner-for-wordcamps/list-wordcamps. Use event_url when available.',
                 ],
                 'session_ids' => [
                     'type'        => 'array',
@@ -1870,7 +1870,7 @@ class Abilities {
                 ],
                 'event_id' => [
                     'type'        => 'integer',
-                    'description' => 'WordCamp Central event ID from wordcamp-companion/list-wordcamps. Use event_url when available.',
+                    'description' => 'WordCamp Central event ID from session-planner-for-wordcamps/list-wordcamps. Use event_url when available.',
                 ],
                 'post_id' => [
                     'type'        => 'integer',

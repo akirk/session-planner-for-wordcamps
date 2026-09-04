@@ -680,7 +680,7 @@
     }
 
     function getPlanYourDayUrl(event) {
-        const base = config.planUrl || config.planBaseUrl || (config.appUrl ? config.appUrl.replace(/\/?$/, '/plan-your/') : '/wordcamp-companion/plan-your/');
+        const base = config.planUrl || config.planBaseUrl || (config.appUrl ? config.appUrl.replace(/\/?$/, '/plan-your/') : '/session-planner-for-wordcamps/plan-your/');
         const slug = getEventSlug(event);
 
         if (!slug) {
@@ -704,11 +704,11 @@
     }
 
     function getCompanionUrl() {
-        return config.appUrl || '/wordcamp-companion/';
+        return config.appUrl || '/session-planner-for-wordcamps/';
     }
 
     function getNotesUrl() {
-        return config.notesUrl || (config.appUrl ? config.appUrl.replace(/\/?$/, '/notes/') : '/wordcamp-companion/notes/');
+        return config.notesUrl || (config.appUrl ? config.appUrl.replace(/\/?$/, '/notes/') : '/session-planner-for-wordcamps/notes/');
     }
 
     function getSelectedEvent() {
@@ -1410,4 +1410,4 @@
         normalizeSettings: normalizeSettings,
         isDebugClockEnabled: isDebugClockEnabled
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

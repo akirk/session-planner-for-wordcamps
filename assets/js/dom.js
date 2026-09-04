@@ -592,4 +592,4 @@
         getValidTimeZone: getValidTimeZone,
         element: element
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

@@ -1,10 +1,12 @@
 <?php
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 defined( 'ABSPATH' ) || exit;
 
 class UserSettings {
+    // Legacy key name from before the plugin was renamed. Stored user meta keeps
+    // its original spelling so an existing install does not lose its settings.
     private const DEBUG_CLOCK_META_KEY = 'wordcamp_companion_show_debug_clock';
 
     public static function get_settings( int $user_id ): array {

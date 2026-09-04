@@ -1,6 +1,6 @@
 <?php
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 use WP_Error;
 
@@ -62,7 +62,7 @@ class TravelAppIntegration {
      */
     public function add_event( array $event ) {
         if ( ! $this->is_available() ) {
-            return new WP_Error( 'wordcamp_companion_travel_app_unavailable', __( 'The Travel App is not available.', 'wordcamp-companion' ), [ 'status' => 404 ] );
+            return new WP_Error( 'session_planner_for_wordcamps_travel_app_unavailable', __( 'The Travel App is not available.', 'session-planner-for-wordcamps' ), [ 'status' => 404 ] );
         }
 
         $title = trim( (string) ( $event['title'] ?? '' ) );
@@ -70,7 +70,7 @@ class TravelAppIntegration {
             $title = trim( (string) ( $event['location'] ?? '' ) );
         }
         if ( '' === $title ) {
-            return new WP_Error( 'wordcamp_companion_travel_app_title', __( 'This WordCamp has no title to name the travel plan after.', 'wordcamp-companion' ), [ 'status' => 400 ] );
+            return new WP_Error( 'session_planner_for_wordcamps_travel_app_title', __( 'This WordCamp has no title to name the travel plan after.', 'session-planner-for-wordcamps' ), [ 'status' => 400 ] );
         }
 
         $existing = $this->find_trip_by_title( $title );
@@ -137,7 +137,7 @@ class TravelAppIntegration {
     private function run( string $name, array $input ) {
         $ability = wp_get_ability( $name );
         if ( ! $ability ) {
-            return new WP_Error( 'wordcamp_companion_travel_app_unavailable', __( 'The Travel App is not available.', 'wordcamp-companion' ), [ 'status' => 404 ] );
+            return new WP_Error( 'session_planner_for_wordcamps_travel_app_unavailable', __( 'The Travel App is not available.', 'session-planner-for-wordcamps' ), [ 'status' => 404 ] );
         }
 
         $result = $ability->execute( $input );

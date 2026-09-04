@@ -114,7 +114,7 @@
         }
 
         const remoteStatus = Number(error.remoteStatus || 0);
-        return error.code === 'wordcamp_companion_schedule_access_denied' ||
+        return error.code === 'session_planner_for_wordcamps_schedule_access_denied' ||
             remoteStatus === 401 ||
             remoteStatus === 403 ||
             /HTTP\s+(401|403)\b/.test(error.message || '');
@@ -128,4 +128,4 @@
         getErrorAlert: getErrorAlert,
         isScheduleAccessDeniedError: isScheduleAccessDeniedError
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

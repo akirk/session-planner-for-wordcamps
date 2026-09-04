@@ -1,6 +1,6 @@
 {
-    "name": "wordcamp-companion/wordcamp-companion",
-    "description": "WordCamp Companion - A WordPress app powered by WpApp",
+    "name": "session-planner-for-wordcamps/session-planner-for-wordcamps",
+    "description": "Session Planner for WordCamps - A WordPress app powered by WpApp",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "require": {
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "WordCampCompanion\\": "src/"
+            "SessionPlannerForWordCamps\\": "src/"
         }
     },
     "version": "1.0.0",
@@ -19,6 +19,6 @@
         }
     ],
     "config": {
-        "autoloader-suffix": "wordcampcompanion"
+        "autoloader-suffix": "sessionplannerforwordcamps"
     }
 }

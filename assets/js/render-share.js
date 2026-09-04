@@ -79,7 +79,7 @@
         nodes.shareQr = element('div', {
             className: 'wcc-share-qr',
             role: 'img',
-            'aria-label': 'QR code for WordCamp Companion',
+            'aria-label': 'QR code for Session Planner for WordCamps',
         });
         nodes.shareOptionApp = createShareOption('app', 'App only');
         nodes.shareOptionSchedule = createShareOption('schedule', 'With schedule');
@@ -94,10 +94,10 @@
         nodes.shareImportNote.append(
             'If you have ',
             element('a', {
-                href: 'https://github.com/akirk/wordcamp-companion',
+                href: 'https://github.com/akirk/session-planner-for-wordcamps',
                 target: '_blank',
                 rel: 'noopener noreferrer',
-                text: 'WordCamp Companion',
+                text: 'Session Planner for WordCamps',
             }),
             ' installed on your own WordPress site, paste this link there to import these sessions.'
         );
@@ -113,7 +113,7 @@
 
         panel.append(
             closeButton,
-            element('h2', { id: 'wcc-share-title', text: 'Share WordCamp Companion' }),
+            element('h2', { id: 'wcc-share-title', text: 'Share Session Planner for WordCamps' }),
             nodes.shareQr,
             options,
             nodes.shareLink,
@@ -191,7 +191,7 @@
     }
 
     function getShareUrlForMode(mode) {
-        const shareUrl = config.shareUrl || 'https://my.wordpress.net/?myapps-i=wordcamp-companion';
+        const shareUrl = config.shareUrl || 'https://my.wordpress.net/?myapps-i=session-planner-for-wordcamps';
 
         if (mode !== 'schedule') {
             return shareUrl;
@@ -694,7 +694,7 @@
         const button = element("button", {
             className: "wcc-share-icon-button",
             type: "button",
-            "aria-label": "Share WordCamp Companion",
+            "aria-label": "Share Session Planner for WordCamps",
             title: "Share",
         });
         const icon = element("span", {
@@ -736,4 +736,4 @@
         importSharedSchedule: importSharedSchedule,
         createShareIconButton: createShareIconButton
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

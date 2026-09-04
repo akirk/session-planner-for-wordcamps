@@ -454,10 +454,10 @@
         const conflictCount = getConflictCount(savedIds);
 
         if (nodes.pageTitle) {
-            nodes.pageTitle.textContent = state.page === 'notes' ? 'Session Notes' : (event ? getEventTitle(event) : 'WordCamp Companion');
+            nodes.pageTitle.textContent = state.page === 'notes' ? 'Session Notes' : (event ? getEventTitle(event) : 'Session Planner for WordCamps');
         }
         if (nodes.pageTitleLink) {
-            nodes.pageTitleLink.href = config.appUrl || '/wordcamp-companion/';
+            nodes.pageTitleLink.href = config.appUrl || '/session-planner-for-wordcamps/';
         }
 
         if (state.page === 'plan-selector') {
@@ -680,7 +680,7 @@
         return 'app';
     }
     function getShareUrlForMode() {
-        return config.shareUrl || 'https://my.wordpress.net/?myapps-i=wordcamp-companion';
+        return config.shareUrl || 'https://my.wordpress.net/?myapps-i=session-planner-for-wordcamps';
     }
     function getCurrentWccSharePayload() {
         return '';
@@ -2301,7 +2301,7 @@
         const button = element('button', {
             className: 'wcc-share-icon-button',
             type: 'button',
-            'aria-label': 'Share WordCamp Companion',
+            'aria-label': 'Share Session Planner for WordCamps',
             title: 'Share',
         });
         const icon = element('span', {
@@ -2411,4 +2411,4 @@
         renderSession: renderSession,
         createShareIconButton: createShareIconButton
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

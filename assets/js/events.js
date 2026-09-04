@@ -902,4 +902,4 @@
         saveSessionNotes: saveSessionNotes,
         saveSettings: saveSettings
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

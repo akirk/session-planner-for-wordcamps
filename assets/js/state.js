@@ -4,7 +4,7 @@
     const TRACK_CHANGE_LEAD_SECONDS = 10 * 60;
     const DEBUG_TIME_SLIDER_RANGE_MINUTES = 180;
     const DEBUG_TIME_SLIDER_STEP_MINUTES = 5;
-    const config = window.WordCampCompanionConfig || {};
+    const config = window.SessionPlannerForWordCampsConfig || {};
     const state = {
         events: [],
         plan: { selected_event_url: '', plans: {} },
@@ -67,4 +67,4 @@
         clockTimer: clockTimer,
         companionExitTimer: companionExitTimer
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

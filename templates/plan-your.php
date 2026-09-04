@@ -12,26 +12,26 @@ defined( 'ABSPATH' ) || exit;
 <body>
     <?php wp_app_body_open(); ?>
 
-    <main id="wordcamp-companion-app" class="wcc-app" data-page="plan-selector">
+    <main id="session-planner-for-wordcamps-app" class="wcc-app" data-page="plan-selector">
         <header class="wcc-header">
             <div>
                 <h1 class="wcc-heading-with-count">
-                    <a class="wcc-title-link" href="<?php echo esc_url( home_url( '/wordcamp-companion/' ) ); ?>">
-                        <?php echo esc_html__( 'Upcoming WordCamps', 'wordcamp-companion' ); ?>
+                    <a class="wcc-title-link" href="<?php echo esc_url( home_url( '/session-planner-for-wordcamps/' ) ); ?>">
+                        <?php echo esc_html__( 'Upcoming WordCamps', 'session-planner-for-wordcamps' ); ?>
                     </a>
                     <span id="wcc-event-count" class="wcc-count"></span>
                 </h1>
                 <p id="wcc-current-event" class="wcc-current-event" hidden></p>
             </div>
             <div id="wcc-plan-summary" class="wcc-plan-summary wcc-actions">
-                <a class="wcc-button" href="<?php echo esc_url( home_url( '/wordcamp-companion/' ) ); ?>"><?php echo esc_html__( 'Companion', 'wordcamp-companion' ); ?></a>
-                <button id="wcc-refresh-events" class="wcc-button" type="button"><?php echo esc_html__( 'Refresh Events', 'wordcamp-companion' ); ?></button>
+                <a class="wcc-button" href="<?php echo esc_url( home_url( '/session-planner-for-wordcamps/' ) ); ?>"><?php echo esc_html__( 'Companion', 'session-planner-for-wordcamps' ); ?></a>
+                <button id="wcc-refresh-events" class="wcc-button" type="button"><?php echo esc_html__( 'Refresh Events', 'session-planner-for-wordcamps' ); ?></button>
             </div>
         </header>
 
         <div id="wcc-alerts" class="wcc-alerts" aria-live="polite"></div>
 
-        <section class="wcc-plan-selector" aria-label="<?php echo esc_attr__( 'Upcoming WordCamps', 'wordcamp-companion' ); ?>">
+        <section class="wcc-plan-selector" aria-label="<?php echo esc_attr__( 'Upcoming WordCamps', 'session-planner-for-wordcamps' ); ?>">
             <div id="wcc-event-list" class="wcc-event-list wcc-event-list-wide"></div>
         </section>
 
