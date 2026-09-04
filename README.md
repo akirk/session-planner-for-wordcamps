@@ -1,7 +1,7 @@
 # Session Planner for WordCamps
 
 - Contributors: akirk
-- Tags: events, schedule, conference, planner, notes
+- Tags: events, schedule, conference, planner, wp-app
 - Requires at least: 6.0
 - Requires PHP: 7.4
 - Tested up to: 7.1
