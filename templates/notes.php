@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <!DOCTYPE html>
-<html <?php echo wp_kses_data( wp_app_language_attributes() ); ?>>
+<html <?php wp_app_language_attributes(); ?>>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
