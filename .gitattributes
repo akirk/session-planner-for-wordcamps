@@ -30,3 +30,7 @@ node_modules export-ignore
 
 # Misc
 .DS_Store export-ignore
+
+# WordPress.org assets (deployed to the SVN assets/ directory, not shipped)
+.wordpress-org export-ignore
+.wordpress-org/** export-ignore
