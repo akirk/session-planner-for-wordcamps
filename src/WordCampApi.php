@@ -902,7 +902,9 @@ class WordCampApi {
     }
 
     private function request_json( string $url, string $source = 'site' ) {
-        $response = wp_remote_get(
+        // Callers restrict $url to wordcamp.org hosts; wp_safe_remote_get() additionally
+        // keeps any redirect from reaching a host on the local network.
+        $response = wp_safe_remote_get(
             $url,
             [
                 'timeout'     => 15,

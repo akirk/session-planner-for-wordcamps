@@ -119,6 +119,12 @@ class App extends BaseApp {
     }
 
     private function get_wcc_query_parameter(): string {
+        // This reads a share link parameter to decide which view to render. It changes no
+        // state, so there is no form submission to attach a nonce to.
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        // The raw query string is only matched against a regular expression; the value that
+        // is extracted from it is sanitized before it is returned.
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $query_string = isset( $_SERVER['QUERY_STRING'] ) ? (string) wp_unslash( $_SERVER['QUERY_STRING'] ) : '';
         if ( '' !== $query_string && preg_match( '/(?:^|&)wcc1=([^&]+)/', $query_string, $matches ) ) {
             return sanitize_text_field( rawurldecode( $matches[1] ) );
@@ -128,6 +134,7 @@ class App extends BaseApp {
             return sanitize_text_field( wp_unslash( (string) $_GET['wcc1'] ) );
         }
 
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
         return '';
     }
 
