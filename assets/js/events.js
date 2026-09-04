@@ -486,38 +486,38 @@
     }
 
     /**
-     * Adds the WordCamp to the Travel App. The server runs the travel-app
+     * Adds the WordCamp to Traveler. The server runs the traveler
      * abilities: it reuses a travel plan with the same title or creates one.
      */
-    async function addEventToTravelApp(event) {
-        if (!config.travelApp || !event || !event.event_url || state.addingTravelAppEventUrl) {
+    async function addEventToTraveler(event) {
+        if (!config.traveler || !event || !event.event_url || state.addingTravelerEventUrl) {
             return;
         }
 
-        state.addingTravelAppEventUrl = event.event_url;
+        state.addingTravelerEventUrl = event.event_url;
         state.alert = null;
         render();
 
         try {
-            const result = await api('travel-app', {
+            const result = await api('traveler', {
                 method: 'POST',
                 body: { event: event },
             });
             const tripUrl = result && result.trip && result.trip.url ? result.trip.url : '';
             if (!tripUrl) {
-                throw new Error('The Travel App did not return a travel plan.');
+                throw new Error('Traveler did not return a travel plan.');
             }
 
             const title = event.title || event.location || event.event_url;
-            state.travelAppTripUrls[event.event_url] = tripUrl;
+            state.travelerTripUrls[event.event_url] = tripUrl;
             state.alert = {
                 type: 'success',
                 message: result.created
-                    ? 'Added ' + title + ' to the Travel App.'
-                    : title + ' is already in the Travel App.',
+                    ? 'Added ' + title + ' to Traveler.'
+                    : title + ' is already in Traveler.',
                 actions: [
                     {
-                        label: 'Open in Travel App',
+                        label: 'Open in Traveler',
                         href: tripUrl,
                     },
                 ],
@@ -525,7 +525,7 @@
         } catch (error) {
             state.alert = getErrorAlert(error);
         } finally {
-            state.addingTravelAppEventUrl = '';
+            state.addingTravelerEventUrl = '';
             render();
         }
     }
@@ -887,7 +887,7 @@
         selectEventForMobileCompanion: selectEventForMobileCompanion,
         selectNotesEvent: selectNotesEvent,
         setEventCompanionVisibility: setEventCompanionVisibility,
-        addEventToTravelApp: addEventToTravelApp,
+        addEventToTraveler: addEventToTraveler,
         loadSchedule: loadSchedule,
         loadGapCandidates: loadGapCandidates,
         shouldLoadInitialCompanionGaps: shouldLoadInitialCompanionGaps,

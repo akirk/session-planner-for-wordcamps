@@ -23,8 +23,8 @@
     function setEventCompanionVisibility() {
         return WCC.setEventCompanionVisibility.apply(WCC, arguments);
     }
-    function addEventToTravelApp() {
-        return WCC.addEventToTravelApp.apply(WCC, arguments);
+    function addEventToTraveler() {
+        return WCC.addEventToTraveler.apply(WCC, arguments);
     }
     function loadSchedule() {
         return WCC.loadSchedule.apply(WCC, arguments);
@@ -114,7 +114,7 @@
         nodes.openEvent = document.getElementById('wcc-open-event');
         nodes.changeEvent = document.getElementById('wcc-change-event');
         nodes.companionVisibility = document.getElementById('wcc-companion-visibility');
-        nodes.travelApp = document.getElementById('wcc-travel-app');
+        nodes.traveler = document.getElementById('wcc-traveler');
         nodes.picker = document.getElementById('wcc-picker');
         nodes.plannerNav = document.getElementById('wcc-planner-nav');
         nodes.eventSelect = document.getElementById('wcc-event-select');
@@ -275,20 +275,20 @@
             });
         }
 
-        if (nodes.travelApp) {
-            nodes.travelApp.addEventListener('click', function () {
+        if (nodes.traveler) {
+            nodes.traveler.addEventListener('click', function () {
                 const event = getSelectedEvent();
                 if (!event) {
                     return;
                 }
 
-                const tripUrl = state.travelAppTripUrls[event.event_url];
+                const tripUrl = state.travelerTripUrls[event.event_url];
                 if (tripUrl) {
                     window.location.href = tripUrl;
                     return;
                 }
 
-                addEventToTravelApp(event);
+                addEventToTraveler(event);
             });
         }
 

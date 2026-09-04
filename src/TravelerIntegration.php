@@ -7,17 +7,17 @@ use WP_Error;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Integrates with the Travel App through the WordPress Abilities API.
+ * Integrates with Traveler through the WordPress Abilities API.
  *
- * Nothing here depends on the Travel App plugin directly: the Companion only
- * looks up `travel-app/*` abilities and executes them, so the integration
+ * Nothing here depends on the Traveler plugin directly: the Companion only
+ * looks up `traveler/*` abilities and executes them, so the integration
  * disappears when the plugin is not active or the user may not use it.
  */
-class TravelAppIntegration {
+class TravelerIntegration {
     const REQUIRED_ABILITIES = [
-        'travel-app/list-trips',
-        'travel-app/get-trip',
-        'travel-app/create-travel-plan',
+        'traveler/list-trips',
+        'traveler/get-trip',
+        'traveler/create-travel-plan',
     ];
 
     /**
@@ -40,7 +40,7 @@ class TravelAppIntegration {
     }
 
     /**
-     * Client configuration, or null when the Travel App is not available.
+     * Client configuration, or null when Traveler is not available.
      */
     public function get_client_config(): ?array {
         if ( ! $this->is_available() ) {
@@ -48,12 +48,12 @@ class TravelAppIntegration {
         }
 
         return [
-            'label' => wp_get_ability( 'travel-app/create-travel-plan' )->get_label(),
+            'label' => wp_get_ability( 'traveler/create-travel-plan' )->get_label(),
         ];
     }
 
     /**
-     * Adds a WordCamp to the Travel App.
+     * Adds a WordCamp to Traveler.
      *
      * Reuses the user's travel plan with the same title when one exists,
      * otherwise creates one spanning the WordCamp's dates.
@@ -62,7 +62,7 @@ class TravelAppIntegration {
      */
     public function add_event( array $event ) {
         if ( ! $this->is_available() ) {
-            return new WP_Error( 'session_planner_for_wordcamps_travel_app_unavailable', __( 'The Travel App is not available.', 'session-planner-for-wordcamps' ), [ 'status' => 404 ] );
+            return new WP_Error( 'session_planner_for_wordcamps_traveler_unavailable', __( 'Traveler is not available.', 'session-planner-for-wordcamps' ), [ 'status' => 404 ] );
         }
 
         $title = trim( (string) ( $event['title'] ?? '' ) );
@@ -70,7 +70,7 @@ class TravelAppIntegration {
             $title = trim( (string) ( $event['location'] ?? '' ) );
         }
         if ( '' === $title ) {
-            return new WP_Error( 'session_planner_for_wordcamps_travel_app_title', __( 'This WordCamp has no title to name the travel plan after.', 'session-planner-for-wordcamps' ), [ 'status' => 400 ] );
+            return new WP_Error( 'session_planner_for_wordcamps_traveler_title', __( 'This WordCamp has no title to name the travel plan after.', 'session-planner-for-wordcamps' ), [ 'status' => 400 ] );
         }
 
         $existing = $this->find_trip_by_title( $title );
@@ -79,14 +79,14 @@ class TravelAppIntegration {
         }
 
         if ( $existing ) {
-            $trip = $this->run( 'travel-app/get-trip', [ 'id' => (int) $existing['id'] ] );
+            $trip = $this->run( 'traveler/get-trip', [ 'id' => (int) $existing['id'] ] );
             if ( is_wp_error( $trip ) ) {
                 return $trip;
             }
 
             return [
                 'created' => false,
-                'trip'    => $trip['trip'] ?? [],
+                'trip'    => $this->unwrap_trip( $trip ),
             ];
         }
 
@@ -101,22 +101,37 @@ class TravelAppIntegration {
             $input['ends_at'] = $ends_at;
         }
 
-        $result = $this->run( 'travel-app/create-travel-plan', $input );
+        $result = $this->run( 'traveler/create-travel-plan', $input );
         if ( is_wp_error( $result ) ) {
             return $result;
         }
 
         return [
             'created' => ! empty( $result['created'] ),
-            'trip'    => $result['trip'] ?? [],
+            'trip'    => $this->unwrap_trip( $result ),
         ];
+    }
+
+    /**
+     * Normalizes an ability result to the travel plan it describes.
+     *
+     * `traveler/create-travel-plan` wraps the plan in a `trip` key, while
+     * `traveler/get-trip` returns its fields at the top level. The client only
+     * needs the plan itself, and it needs the `url` either way.
+     */
+    private function unwrap_trip( array $result ): array {
+        if ( isset( $result['trip'] ) && is_array( $result['trip'] ) ) {
+            return $result['trip'];
+        }
+
+        return isset( $result['id'] ) ? $result : [];
     }
 
     /**
      * @return array|null|WP_Error
      */
     private function find_trip_by_title( string $title ) {
-        $result = $this->run( 'travel-app/list-trips', [] );
+        $result = $this->run( 'traveler/list-trips', [] );
         if ( is_wp_error( $result ) ) {
             return $result;
         }
@@ -137,7 +152,7 @@ class TravelAppIntegration {
     private function run( string $name, array $input ) {
         $ability = wp_get_ability( $name );
         if ( ! $ability ) {
-            return new WP_Error( 'session_planner_for_wordcamps_travel_app_unavailable', __( 'The Travel App is not available.', 'session-planner-for-wordcamps' ), [ 'status' => 404 ] );
+            return new WP_Error( 'session_planner_for_wordcamps_traveler_unavailable', __( 'Traveler is not available.', 'session-planner-for-wordcamps' ), [ 'status' => 404 ] );
         }
 
         $result = $ability->execute( $input );

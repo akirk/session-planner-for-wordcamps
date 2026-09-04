@@ -109,11 +109,11 @@ class RestController {
 
         register_rest_route(
             self::NAMESPACE,
-            '/travel-app',
+            '/traveler',
             [
                 [
                     'methods'             => 'POST',
-                    'callback'            => [ $this, 'add_event_to_travel_app' ],
+                    'callback'            => [ $this, 'add_event_to_traveler' ],
                     'permission_callback' => [ $this, 'can_read' ],
                 ],
             ]
@@ -1045,9 +1045,9 @@ class RestController {
     }
 
     /**
-     * Adds the given WordCamp to the Travel App via its abilities.
+     * Adds the given WordCamp to Traveler via its abilities.
      */
-    public function add_event_to_travel_app( WP_REST_Request $request ) {
+    public function add_event_to_traveler( WP_REST_Request $request ) {
         $params = $this->get_request_params( $request );
         $event = isset( $params['event'] ) && is_array( $params['event'] ) ? $params['event'] : [];
         $event_url = isset( $event['event_url'] ) && is_string( $event['event_url'] )
@@ -1064,7 +1064,7 @@ class RestController {
             $event = array_replace_recursive( $event, $central_event );
         }
 
-        $result = ( new TravelAppIntegration() )->add_event( $event );
+        $result = ( new TravelerIntegration() )->add_event( $event );
         if ( is_wp_error( $result ) ) {
             return $result;
         }

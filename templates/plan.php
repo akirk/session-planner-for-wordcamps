@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
                     <div class="wcc-selected-actions wcc-title-actions">
                         <a id="wcc-open-event" class="wcc-button" href="#" target="_blank" rel="noopener noreferrer"><?php echo esc_html__( 'Event Site', 'session-planner-for-wordcamps' ); ?></a>
                         <button id="wcc-companion-visibility" class="wcc-button" type="button" hidden><?php echo esc_html__( 'Attend', 'session-planner-for-wordcamps' ); ?></button>
-                        <button id="wcc-travel-app" class="wcc-button" type="button" hidden><?php echo esc_html__( 'Add to Travel App', 'session-planner-for-wordcamps' ); ?></button>
+                        <button id="wcc-traveler" class="wcc-button" type="button" hidden><?php echo esc_html__( 'Add to Traveler', 'session-planner-for-wordcamps' ); ?></button>
                         <a id="wcc-change-event" class="wcc-button" href="<?php echo esc_url( home_url( '/session-planner-for-wordcamps/plan-your/' ) ); ?>"><?php echo esc_html__( 'Change WordCamp', 'session-planner-for-wordcamps' ); ?></a>
                     </div>
                 </div>
