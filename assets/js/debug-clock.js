@@ -159,4 +159,4 @@
         commitDebugTimeAdjustment: commitDebugTimeAdjustment,
         clearDebugTimeAdjustment: clearDebugTimeAdjustment
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

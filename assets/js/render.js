@@ -17,8 +17,8 @@
     function setEventCompanionVisibility() {
         return WCC.setEventCompanionVisibility.apply(WCC, arguments);
     }
-    function addEventToTravelApp() {
-        return WCC.addEventToTravelApp.apply(WCC, arguments);
+    function addEventToTraveler() {
+        return WCC.addEventToTraveler.apply(WCC, arguments);
     }
     function savedSessionPostToSession() {
         return WCC.savedSessionPostToSession.apply(WCC, arguments);
@@ -454,10 +454,10 @@
         const conflictCount = getConflictCount(savedIds);
 
         if (nodes.pageTitle) {
-            nodes.pageTitle.textContent = state.page === 'notes' ? 'Session Notes' : (event ? getEventTitle(event) : 'WordCamp Companion');
+            nodes.pageTitle.textContent = state.page === 'notes' ? 'Session Notes' : (event ? getEventTitle(event) : 'Session Planner for WordCamps');
         }
         if (nodes.pageTitleLink) {
-            nodes.pageTitleLink.href = config.appUrl || '/wordcamp-companion/';
+            nodes.pageTitleLink.href = config.appUrl || '/session-planner-for-wordcamps/';
         }
 
         if (state.page === 'plan-selector') {
@@ -501,7 +501,7 @@
                 nodes.openEvent.hidden = true;
             }
             setHidden(nodes.companionVisibility, true);
-            setHidden(nodes.travelApp, true);
+            setHidden(nodes.traveler, true);
             return;
         }
 
@@ -523,33 +523,33 @@
         }
 
         renderCompanionVisibilityButton(nodes.companionVisibility, event);
-        renderTravelAppButton(nodes.travelApp, event);
+        renderTravelerButton(nodes.traveler, event);
     }
 
-    function getTravelAppButtonLabel(event) {
-        if (state.addingTravelAppEventUrl === event.event_url) {
+    function getTravelerButtonLabel(event) {
+        if (state.addingTravelerEventUrl === event.event_url) {
             return 'Adding...';
         }
 
-        return state.travelAppTripUrls[event.event_url] ? 'Open in Travel App' : 'Add to Travel App';
+        return state.travelerTripUrls[event.event_url] ? 'Open in Traveler' : 'Add to Traveler';
     }
 
-    function renderTravelAppButton(button, event) {
+    function renderTravelerButton(button, event) {
         if (!button) {
             return;
         }
 
-        // The button only appears when the Travel App abilities are available
+        // The button only appears when the Traveler abilities are available
         // to this user and the WordCamp is on their attending list.
-        if (!config.travelApp || !event || !event.event_url || !isEventShownInCompanion(event)) {
+        if (!config.traveler || !event || !event.event_url || !isEventShownInCompanion(event)) {
             setHidden(button, true);
             return;
         }
 
         setHidden(button, false);
-        button.textContent = getTravelAppButtonLabel(event);
-        button.disabled = Boolean(state.addingTravelAppEventUrl);
-        button.setAttribute('aria-label', getTravelAppButtonLabel(event) + ': ' + getEventTitle(event));
+        button.textContent = getTravelerButtonLabel(event);
+        button.disabled = Boolean(state.addingTravelerEventUrl);
+        button.setAttribute('aria-label', getTravelerButtonLabel(event) + ': ' + getEventTitle(event));
     }
 
     function renderControls() {
@@ -680,7 +680,7 @@
         return 'app';
     }
     function getShareUrlForMode() {
-        return config.shareUrl || 'https://my.wordpress.net/?myapps-i=wordcamp-companion';
+        return config.shareUrl || 'https://my.wordpress.net/?myapps-i=session-planner-for-wordcamps';
     }
     function getCurrentWccSharePayload() {
         return '';
@@ -1487,21 +1487,21 @@
         switcher.append(select);
         switcherRow.append(switcher, shareButton);
         links.append(planButton, notesButton);
-        if (config.travelApp && selectedEvent && selectedEvent.event_url) {
+        if (config.traveler && selectedEvent && selectedEvent.event_url) {
             const travelButton = element('button', {
                 className: 'wcc-plan-link wcc-companion-link-travel',
                 type: 'button',
-                text: getTravelAppButtonLabel(selectedEvent),
+                text: getTravelerButtonLabel(selectedEvent),
             });
-            travelButton.disabled = Boolean(state.addingTravelAppEventUrl);
+            travelButton.disabled = Boolean(state.addingTravelerEventUrl);
             travelButton.addEventListener('click', function () {
-                const tripUrl = state.travelAppTripUrls[selectedEvent.event_url];
+                const tripUrl = state.travelerTripUrls[selectedEvent.event_url];
                 if (tripUrl) {
                     window.location.href = tripUrl;
                     return;
                 }
 
-                addEventToTravelApp(selectedEvent);
+                addEventToTraveler(selectedEvent);
             });
             links.append(travelButton);
         }
@@ -2301,7 +2301,7 @@
         const button = element('button', {
             className: 'wcc-share-icon-button',
             type: 'button',
-            'aria-label': 'Share WordCamp Companion',
+            'aria-label': 'Share Session Planner for WordCamps',
             title: 'Share',
         });
         const icon = element('span', {
@@ -2411,4 +2411,4 @@
         renderSession: renderSession,
         createShareIconButton: createShareIconButton
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

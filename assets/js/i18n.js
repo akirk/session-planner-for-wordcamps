@@ -1,5 +1,5 @@
 (function (WCC) {
-    const TEXT_DOMAIN = 'wordcamp-companion';
+    const TEXT_DOMAIN = 'session-planner-for-wordcamps';
     const wpI18n = (window.wp && window.wp.i18n) ? window.wp.i18n : null;
 
     function localSprintf(format, args) {
@@ -38,4 +38,4 @@
         _n: _n,
         sprintf: sprintf,
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

@@ -1,6 +1,6 @@
 <?php
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 use WP_Error;
 use WP_Query;
@@ -8,9 +8,16 @@ use WP_Query;
 defined( 'ABSPATH' ) || exit;
 
 class PlannerRepository {
+    // The wcc_ prefix predates the rename to "Session Planner for WordCamps".
+    // It is kept: renaming a post type and a taxonomy would need a data
+    // migration on every existing install, and the twenty-character limit on
+    // post type names leaves no better prefix to migrate to.
     public const POST_TYPE = 'wcc_session';
     public const TAXONOMY = 'wcc_wordcamp';
 
+    // Legacy key names from before the plugin was renamed. Anything already
+    // written to the database keeps its original spelling so an existing install
+    // does not lose its data; see the note on POST_TYPE and TAXONOMY above.
     private const SELECTED_TERM_META_KEY = 'wordcamp_companion_selected_wordcamp';
     private const COMPANION_VISIBILITY_META_KEY = 'wordcamp_companion_wordcamp_visibility';
     private const EVENT_META_KEY = 'wcc_event';
@@ -36,7 +43,7 @@ class PlannerRepository {
             if ( 0 === strpos( $route, '/wp/v2/' . $base ) ) {
                 return new \WP_Error(
                     'rest_login_required',
-                    __( 'Authentication is required to read this data.', 'wordcamp-companion' ),
+                    __( 'Authentication is required to read this data.', 'session-planner-for-wordcamps' ),
                     [ 'status' => rest_authorization_required_code() ]
                 );
             }
@@ -58,8 +65,8 @@ class PlannerRepository {
             [ self::POST_TYPE ],
             [
                 'labels'            => [
-                    'name'          => __( 'WordCamps', 'wordcamp-companion' ),
-                    'singular_name' => __( 'WordCamp', 'wordcamp-companion' ),
+                    'name'          => __( 'WordCamps', 'session-planner-for-wordcamps' ),
+                    'singular_name' => __( 'WordCamp', 'session-planner-for-wordcamps' ),
                 ],
                 'public'            => false,
                 'show_ui'           => true,
@@ -79,8 +86,8 @@ class PlannerRepository {
             self::POST_TYPE,
             [
                 'labels'          => [
-                    'name'          => __( 'Saved Sessions', 'wordcamp-companion' ),
-                    'singular_name' => __( 'Saved Session', 'wordcamp-companion' ),
+                    'name'          => __( 'Saved Sessions', 'session-planner-for-wordcamps' ),
+                    'singular_name' => __( 'Saved Session', 'session-planner-for-wordcamps' ),
                 ],
                 'public'          => false,
                 'show_ui'         => true,
@@ -169,8 +176,8 @@ class PlannerRepository {
 
         if ( empty( $event['event_url'] ) || ! $this->api->is_allowed_wordcamp_url( $event['event_url'] ) ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_event',
-                __( 'Choose a valid WordCamp from the event list.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_event',
+                __( 'Choose a valid WordCamp from the event list.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -194,8 +201,8 @@ class PlannerRepository {
 
         if ( empty( $event['event_url'] ) || ! $this->api->is_allowed_wordcamp_url( $event['event_url'] ) ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_event',
-                __( 'Choose a valid WordCamp from the event list.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_event',
+                __( 'Choose a valid WordCamp from the event list.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }

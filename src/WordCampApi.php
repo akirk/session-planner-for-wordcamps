@@ -1,6 +1,6 @@
 <?php
 
-namespace WordCampCompanion;
+namespace SessionPlannerForWordCamps;
 
 use WP_Error;
 
@@ -8,6 +8,9 @@ defined( 'ABSPATH' ) || exit;
 
 class WordCampApi {
     private const CENTRAL_WORDCAMPS_URL = 'https://central.wordcamp.org/wp-json/wp/v2/wordcamps';
+    // Legacy cache key names from before the plugin was renamed. They address
+    // option rows that existing installs already hold, and uninstall.php cleans
+    // up the same spellings, so they are kept as they are.
     private const WORDCAMPS_CACHE_KEY = 'wordcamp_companion_wordcamps_v4';
     private const WORDCAMPS_CACHE_TTL = 6 * HOUR_IN_SECONDS;
     private const SCHEDULE_CACHE_TTL = 15 * MINUTE_IN_SECONDS;
@@ -42,8 +45,8 @@ class WordCampApi {
 
         if ( ! is_array( $response['body'] ) ) {
             $error = new WP_Error(
-                'wordcamp_companion_invalid_wordcamps',
-                __( 'WordCamp Central returned an unexpected response.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_wordcamps',
+                __( 'WordCamp Central returned an unexpected response.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 502 ]
             );
 
@@ -87,8 +90,8 @@ class WordCampApi {
 
         if ( '' === $event_url || ! $this->is_allowed_wordcamp_url( $event_url ) ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_event_url',
-                __( 'Choose a valid WordCamp site URL.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_event_url',
+                __( 'Choose a valid WordCamp site URL.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -109,8 +112,8 @@ class WordCampApi {
         $index = is_array( $rest_index['body'] ) ? $rest_index['body'] : [];
         if ( ! $this->rest_route_exists( $index, '/wp/v2/sessions' ) ) {
             return new WP_Error(
-                'wordcamp_companion_schedule_unavailable',
-                __( 'This WordCamp has not published a REST schedule yet.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_schedule_unavailable',
+                __( 'This WordCamp has not published a REST schedule yet.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 404 ]
             );
         }
@@ -206,8 +209,8 @@ class WordCampApi {
 
         if ( '' === $event_url || ! $this->is_allowed_wordcamp_url( $event_url ) ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_event_url',
-                __( 'Choose a valid WordCamp site URL.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_event_url',
+                __( 'Choose a valid WordCamp site URL.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -279,8 +282,8 @@ class WordCampApi {
 
         if ( '' === $event_url || ! $this->is_allowed_wordcamp_url( $event_url ) ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_event_url',
-                __( 'Choose a valid WordCamp site URL.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_event_url',
+                __( 'Choose a valid WordCamp site URL.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 400 ]
             );
         }
@@ -380,8 +383,8 @@ class WordCampApi {
         $index = is_array( $rest_index['body'] ) ? $rest_index['body'] : [];
         if ( ! $this->rest_route_exists( $index, '/wp/v2/sessions' ) ) {
             return new WP_Error(
-                'wordcamp_companion_schedule_unavailable',
-                __( 'This WordCamp has not published a REST schedule yet.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_schedule_unavailable',
+                __( 'This WordCamp has not published a REST schedule yet.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 404 ]
             );
         }
@@ -848,8 +851,8 @@ class WordCampApi {
 
             if ( ! is_array( $response['body'] ) || ! $this->is_list_array( $response['body'] ) ) {
                 return new WP_Error(
-                    'wordcamp_companion_invalid_collection',
-                    __( 'The WordCamp site returned an unexpected schedule response.', 'wordcamp-companion' ),
+                    'session_planner_for_wordcamps_invalid_collection',
+                    __( 'The WordCamp site returned an unexpected schedule response.', 'session-planner-for-wordcamps' ),
                     [ 'status' => 502 ]
                 );
             }
@@ -892,8 +895,8 @@ class WordCampApi {
 
         if ( ! is_array( $response['body'] ) || ! $this->is_list_array( $response['body'] ) ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_collection',
-                __( 'The WordCamp site returned an unexpected schedule response.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_collection',
+                __( 'The WordCamp site returned an unexpected schedule response.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 502 ]
             );
         }
@@ -902,12 +905,14 @@ class WordCampApi {
     }
 
     private function request_json( string $url, string $source = 'site' ) {
-        $response = wp_remote_get(
+        // Callers restrict $url to wordcamp.org hosts; wp_safe_remote_get() additionally
+        // keeps any redirect from reaching a host on the local network.
+        $response = wp_safe_remote_get(
             $url,
             [
                 'timeout'     => 15,
                 'redirection' => 3,
-                'user-agent'  => 'WordCamp Companion/' . ( defined( 'WORDCAMP_COMPANION_VERSION' ) ? WORDCAMP_COMPANION_VERSION : '1.0.0' ) . '; ' . home_url( '/' ),
+                'user-agent'  => 'Session Planner for WordCamps/' . ( defined( 'SESSION_PLANNER_FOR_WORDCAMPS_VERSION' ) ? SESSION_PLANNER_FOR_WORDCAMPS_VERSION : '1.0.0' ) . '; ' . home_url( '/' ),
             ]
         );
 
@@ -923,8 +928,8 @@ class WordCampApi {
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
         if ( JSON_ERROR_NONE !== json_last_error() ) {
             return new WP_Error(
-                'wordcamp_companion_invalid_json',
-                __( 'The WordCamp site returned invalid JSON.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_invalid_json',
+                __( 'The WordCamp site returned invalid JSON.', 'session-planner-for-wordcamps' ),
                 [ 'status' => 502 ]
             );
         }
@@ -946,17 +951,17 @@ class WordCampApi {
         if ( 'central' === $source ) {
             if ( $is_access_denied ) {
                 return new WP_Error(
-                    'wordcamp_companion_central_access_denied',
-                    __( 'WordCamp Central is not allowing the event list to be loaded right now. Try refreshing the list again later.', 'wordcamp-companion' ),
+                    'session_planner_for_wordcamps_central_access_denied',
+                    __( 'WordCamp Central is not allowing the event list to be loaded right now. Try refreshing the list again later.', 'session-planner-for-wordcamps' ),
                     $data
                 );
             }
 
             return new WP_Error(
-                'wordcamp_companion_central_remote_error',
+                'session_planner_for_wordcamps_central_remote_error',
                 sprintf(
                     /* translators: %d: HTTP response status code. */
-                    __( 'WordCamp Central returned HTTP %d while loading the event list.', 'wordcamp-companion' ),
+                    __( 'WordCamp Central returned HTTP %d while loading the event list.', 'session-planner-for-wordcamps' ),
                     $status
                 ),
                 $data
@@ -965,17 +970,17 @@ class WordCampApi {
 
         if ( $is_access_denied ) {
             return new WP_Error(
-                'wordcamp_companion_schedule_access_denied',
-                __( 'This WordCamp is not allowing schedule data to load here right now. Open the event site for the published schedule, or try again later.', 'wordcamp-companion' ),
+                'session_planner_for_wordcamps_schedule_access_denied',
+                __( 'This WordCamp is not allowing schedule data to load here right now. Open the event site for the published schedule, or try again later.', 'session-planner-for-wordcamps' ),
                 $data
             );
         }
 
         return new WP_Error(
-            'wordcamp_companion_remote_error',
+            'session_planner_for_wordcamps_remote_error',
             sprintf(
                 /* translators: %d: HTTP response status code. */
-                __( 'The WordCamp schedule service returned HTTP %d.', 'wordcamp-companion' ),
+                __( 'The WordCamp schedule service returned HTTP %d.', 'session-planner-for-wordcamps' ),
                 $status
             ),
             $data

@@ -1,8 +1,8 @@
 (function () {
-    const config = window.WordCampCompanionConfig || {};
+    const config = window.SessionPlannerForWordCampsConfig || {};
 
     function init() {
-        const app = document.getElementById('wordcamp-companion-app');
+        const app = document.getElementById('session-planner-for-wordcamps-app');
 
         if (!app || app.dataset.page !== 'settings') {
             return;

@@ -495,4 +495,4 @@
         qrGfMultiply: qrGfMultiply,
         createQrGfTables: createQrGfTables
     });
-})(window.WordCampCompanion = window.WordCampCompanion || {});
+})(window.SessionPlannerForWordCamps = window.SessionPlannerForWordCamps || {});

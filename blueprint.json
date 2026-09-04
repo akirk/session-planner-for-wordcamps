@@ -1,7 +1,7 @@
 {
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"meta": {
-		"title": "WordCamp Companion",
+		"title": "Session Planner for WordCamps",
 		"description": "A tool to help you plan your WordCamp attendance.",
 		"author": "Alex Kirk",
 		"categories": [
@@ -9,19 +9,19 @@
 			"WordPress"
 		]
 	},
-	"landingPage": "/wordcamp-companion/",
+	"landingPage": "/session-planner-for-wordcamps/",
 	"steps": [
 		{
 			"step": "installPlugin",
 			"pluginData": {
 				"resource": "git:directory",
-				"url": "https://github.com/akirk/wordcamp-companion",
+				"url": "https://github.com/akirk/session-planner-for-wordcamps",
 				"ref": "dist/main",
 				"refType": "branch"
 			},
 			"options": {
 				"activate": true,
-				"targetFolderName": "wordcamp-companion"
+				"targetFolderName": "session-planner-for-wordcamps"
 			}
 		}
 	]
