@@ -83,7 +83,7 @@ The companion view can also display links to Google Maps and OpenStreetMap for v
 
 ## Screenshots
 
-1. The companion timeline with arrival, track changes, saved sessions, and day endings.
+1. The WordCamps coming up, each with its dates and where it is, and the button that adds it to your plan.
 
 ## Changelog
 
