@@ -1,28 +1,28 @@
 {
-	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
-	"meta": {
-		"title": "Session Planner for WordCamps",
-		"description": "A tool to help you plan your WordCamp attendance.",
-		"author": "Alex Kirk",
-		"categories": [
-			"Apps",
-			"WordPress"
-		]
-	},
-	"landingPage": "/session-planner-for-wordcamps/",
-	"steps": [
-		{
-			"step": "installPlugin",
-			"pluginData": {
-				"resource": "git:directory",
-				"url": "https://github.com/akirk/session-planner-for-wordcamps",
-				"ref": "dist/main",
-				"refType": "branch"
-			},
-			"options": {
-				"activate": true,
-				"targetFolderName": "session-planner-for-wordcamps"
-			}
-		}
-	]
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "meta": {
+        "title": "Session Planner for WordCamps",
+        "description": "A tool to help you plan your WordCamp attendance.",
+        "author": "Alex Kirk",
+        "categories": [
+            "Apps",
+            "WordPress"
+        ]
+    },
+    "landingPage": "/session-planner-for-wordcamps/",
+    "steps": [
+        {
+            "step": "installPlugin",
+            "pluginData": {
+                "resource": "git:directory",
+                "url": "https://github.com/akirk/session-planner-for-wordcamps",
+                "ref": "dist/main",
+                "refType": "branch"
+            },
+            "options": {
+                "activate": true,
+                "targetFolderName": "session-planner-for-wordcamps"
+            }
+        }
+    ]
 }
