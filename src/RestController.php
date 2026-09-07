@@ -1,5 +1,5 @@
 <?php
-
+// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Session endpoint intentionally queries schedule metadata.
 namespace SessionPlannerForWordCamps;
 
 use WP_Error;
