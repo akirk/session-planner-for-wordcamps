@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Session Planner for WordCamps
- * Plugin URI: https://github.com/akirk/session-planner-for-wordcamps
+ * Plugin URI: https://wpapps.kirk.at/apps/session-planner-for-wordcamps/
  * Description: Plan the WordCamp you are attending: save sessions from the schedule, follow a live timeline through your day, and export your notes.
  * Version: 1.0.0
  * Requires at least: 6.0
