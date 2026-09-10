@@ -168,9 +168,10 @@ class App extends BaseApp {
         add_action(
             wp_app_get_scoped_hook_name( 'wp_app_head_scripts', $this->get_url_path() ),
             function () use ( $asset_version ): void {
-                echo '<script id="session-planner-for-wordcamps-config-inline-js">' . "\n";
-                echo 'window.SessionPlannerForWordCampsConfig = ' . wp_json_encode( $this->get_client_config( $asset_version ) ) . ';' . "\n";
-                echo '</script>' . "\n";
+                printf(
+                    '<meta id="session-planner-for-wordcamps-config" data-config="%s">' . "\n",
+                    esc_attr( wp_json_encode( $this->get_client_config( $asset_version ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) )
+                );
             },
             0
         );
