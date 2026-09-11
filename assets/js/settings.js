@@ -1,18 +1,5 @@
 (function () {
-    function getConfig() {
-        const configElement = document.getElementById('session-planner-for-wordcamps-config');
-        if (!configElement) {
-            return {};
-        }
-
-        try {
-            return JSON.parse(configElement.getAttribute('data-config') || '{}');
-        } catch (error) {
-            return {};
-        }
-    }
-
-    const config = getConfig();
+    const config = window.SessionPlannerForWordCampsConfig || {};
 
     function init() {
         const app = document.getElementById('session-planner-for-wordcamps-app');

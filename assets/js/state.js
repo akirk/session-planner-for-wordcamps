@@ -1,23 +1,10 @@
 (function (WCC) {
-    function getConfig() {
-        const configElement = document.getElementById('session-planner-for-wordcamps-config');
-        if (!configElement) {
-            return {};
-        }
-
-        try {
-            return JSON.parse(configElement.getAttribute('data-config') || '{}');
-        } catch (error) {
-            return {};
-        }
-    }
-
     const SCRIPT_BUILD = '20260601.1';
     const SUBSTANTIAL_OVERLAP_SECONDS = 20 * 60;
     const TRACK_CHANGE_LEAD_SECONDS = 10 * 60;
     const DEBUG_TIME_SLIDER_RANGE_MINUTES = 180;
     const DEBUG_TIME_SLIDER_STEP_MINUTES = 5;
-    const config = getConfig();
+    const config = window.SessionPlannerForWordCampsConfig || {};
     const state = {
         events: [],
         plan: { selected_event_url: '', plans: {} },
