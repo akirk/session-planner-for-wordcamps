@@ -165,21 +165,12 @@ class App extends BaseApp {
             );
         }
 
-        add_action(
-            wp_app_get_scoped_hook_name( 'wp_app_head_scripts', $this->get_url_path() ),
-            function () use ( $asset_version ): void {
-                printf(
-                    '<meta id="session-planner-for-wordcamps-config" data-config="%s">' . "\n",
-                    esc_attr( wp_json_encode( $this->get_client_config( $asset_version ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) )
-                );
-            },
-            0
-        );
-
         if ( 'settings.php' === basename( $template_path ) ) {
             $settings_script_path = dirname( __DIR__ ) . '/assets/js/settings.js';
             if ( file_exists( $settings_script_path ) ) {
-                $this->enqueue_script_asset( 'session-planner-for-wordcamps-settings', 'assets/js/settings.js', [], $asset_version );
+                $settings_handle = 'session-planner-for-wordcamps-settings';
+                $this->enqueue_script_asset( $settings_handle, 'assets/js/settings.js', [], $asset_version );
+                $this->localize_script_config( $settings_handle, $asset_version );
             }
 
             return;
@@ -190,6 +181,10 @@ class App extends BaseApp {
 
         foreach ( $script_assets as $handle => $relative_path ) {
             if ( $this->enqueue_script_asset( $handle, $relative_path, $previous_script_handle ? [ $previous_script_handle ] : [], $asset_version ) ) {
+                if ( 'session-planner-for-wordcamps-state' === $handle ) {
+                    $this->localize_script_config( $handle, $asset_version );
+                }
+
                 $previous_script_handle = $handle;
             }
         }
@@ -256,6 +251,14 @@ class App extends BaseApp {
         );
 
         return true;
+    }
+
+    private function localize_script_config( string $handle, string $asset_version ): void {
+        wp_localize_script(
+            $handle,
+            'SessionPlannerForWordCampsConfig',
+            $this->get_client_config( $asset_version )
+        );
     }
 
     private function is_companion_template( string $template_path ): bool {
