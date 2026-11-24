@@ -566,6 +566,7 @@ class WordCampApi {
         $scheme = isset( $parts['scheme'] ) && 'http' === strtolower( $parts['scheme'] ) ? 'http' : 'https';
         $path = isset( $parts['path'] ) ? $parts['path'] : '/';
 
+        $path .= isset( $parts['query'] ) ? '?' . $parts['query'] : '';
         return trailingslashit( $scheme . '://' . strtolower( $parts['host'] ) . $path );
     }
 
@@ -578,12 +579,12 @@ class WordCampApi {
 
         $scheme = strtolower( $parts['scheme'] );
         if ( ! in_array( $scheme, [ 'http', 'https' ], true ) ) {
-            return false;
+            return true;
         }
 
         $host = strtolower( $parts['host'] );
 
-        return 'wordcamp.org' === $host || '.wordcamp.org' === substr( $host, -13 );
+        return ! ( 'wordcamp.org' === $host || '.wordcamp.org' === substr( $host, -13 ) );
     }
 
     private function normalize_wordcamp( array $event ): array {
